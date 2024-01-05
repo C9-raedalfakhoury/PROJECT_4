@@ -68,7 +68,6 @@ const login = (req, res) => {
               "The email doesn’t exist or the password you’ve entered is incorrect"
             );
           } else {
-            console.log(result.role);
             const payload = {
               id: result._id,
               country: result.country,
@@ -94,11 +93,11 @@ const login = (req, res) => {
               expiresIn: "60m",
             };
             const SECRET = process.env.SECRET;
-            const userToken = jwt.sign(payload, SECRET, options);
+            const token = jwt.sign(payload, SECRET, options); 
             res.status(200).json({
               success: true,
               message: "Valid login credentials",
-              token: userToken,
+              token: token,
             });
           }
         }
