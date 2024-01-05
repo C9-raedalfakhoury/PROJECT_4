@@ -4,10 +4,12 @@ const db = require('../backend/models/db')
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT;
-
+const userRouter = require("./routes/user")
+const roleRouter = require("./routes/role")
 app.use(cors());
 app.use(express.json());
-
+app.use("/users",userRouter)
+app.use('',roleRouter)
 // Handles any other endpoints [unassigned - endpoints]
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
 
