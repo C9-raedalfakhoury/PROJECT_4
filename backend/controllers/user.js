@@ -67,13 +67,14 @@ const login = (req, res) => {
             country: result.country,
             role: {
               role:
-                result.role == "659887e1eeb4a2bd06fb63dc" ? "user" : "admin",
+                result.role == "6599365ae4061d69406d4898" ? "user" : "admin",
               permissions:
-                result.role == "659887e1eeb4a2bd06fb63dc"
+                result.role == "6599365ae4061d69406d4898"
                   ? [
                       "Add_products_to_cart",
                       "add_products",
                       "create_comments",
+                      "delete_product"
                     ]
                   : [
                       "Manage_products",
