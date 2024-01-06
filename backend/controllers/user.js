@@ -62,44 +62,38 @@ const login = (req, res) => {
             "The email doesn’t exist or the password you’ve entered is incorrect"
           );
         } else {
-          const isValid = await bcryptjs.compare(password, result.password);
-          if (!isValid) {
-            res.send(
-              "The email doesn’t exist or the password you’ve entered is incorrect"
-            );
-          } else {
-            const payload = {
-              id: result._id,
-              country: result.country,
-              role: {
-                role:
-                  result.role == "659842fef7aaa05259ea8920" ? "user" : "admin",
-                permissions:
-                  result.role == "659842fef7aaa05259ea8920"
-                    ? [
-                        "Add_products_to_cart",
-                        "create_products",
-                        "create_comments",
-                      ]
-                    : [
-                        "Manage_products",
-                        "View_orders",
-                        "Manage_users",
-                        "Delete_comments",
-                      ],
-              },
-            };
-            const options = {
-              expiresIn: "60m",
-            };
-            const SECRET = process.env.SECRET;
-            const token = jwt.sign(payload, SECRET, options); 
-            res.status(200).json({
-              success: true,
-              message: "Valid login credentials",
-              token: token,
-            });
-          }
+          const payload = {
+            id: result._id,
+            country: result.country,
+            role: {
+              role:
+                result.role == "659887e1eeb4a2bd06fb63dc" ? "user" : "admin",
+              permissions:
+                result.role == "659887e1eeb4a2bd06fb63dc"
+                  ? [
+                      "Add_products_to_cart",
+                      "add_products",
+                      "create_comments",
+                    ]
+                  : [
+                      "Manage_products",
+                      "View_orders",
+                      "Manage_users",
+                      "Delete_comments",
+                      "add_category"
+                    ],
+            },
+          };
+          const options = {
+            expiresIn: "60m",
+          };
+          const SECRET = process.env.SECRET;
+          const token = jwt.sign(payload, SECRET, options);
+          res.status(200).json({
+            success: true,
+            message: "Valid login credentials",
+            token: token,
+          });
         }
       }
     })
