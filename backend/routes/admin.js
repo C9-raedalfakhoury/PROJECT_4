@@ -1,6 +1,11 @@
 const express = require("express");
 const adminRouter = express.Router();
-const { deleteUserById ,createCategory,deleteCommentById} = require("../controllers/admin");
+const {
+  deleteUserById,
+  createCategory,
+  deleteCommentById,
+  deleteProductById
+} = require("../controllers/admin");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 adminRouter.delete(
@@ -15,10 +20,16 @@ adminRouter.delete(
   authorization("Delete_comments"),
   deleteCommentById
 );
+adminRouter.delete(
+  "/admin/:id/products/delete",
+  authentication,
+  authorization("Manage_products"),
+  deleteProductById
+);
 adminRouter.post(
-    "/category",
-    authentication,
-    authorization("add_category"),
-    createCategory
-  );
+  "/category",
+  authentication,
+  authorization("add_category"),
+  createCategory
+);
 module.exports = adminRouter;
