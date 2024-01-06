@@ -99,9 +99,9 @@ const updateProductById = async (req, res) => {
 const createNewComment = (req, res) => {
   const { id } = req.params;
   const commenter = req.token.id;
-  const { comment } = req.body;
+  const { comments, rate } = req.body;
   const review = new reviewSchema({
-    comment,
+    comments,
     commenter,
   });
   review
@@ -113,7 +113,7 @@ const createNewComment = (req, res) => {
           $push: { comments: result._id },
         }
       );
-      console.log("result from create commet",result);
+      console.log("result from create commet", result);
       res.status(201).json({
         success: true,
         message: `Comment created`,
@@ -121,7 +121,7 @@ const createNewComment = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log("error from create comments",err);
+      console.log("error from create comments", err);
       res.status(500).json({
         success: false,
         message: "Server Error",
@@ -134,5 +134,5 @@ module.exports = {
   getAllProduct,
   deleteProductById,
   updateProductById,
-  createNewComment
+  createNewComment,
 };

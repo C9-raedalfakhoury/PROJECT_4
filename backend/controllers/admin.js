@@ -1,5 +1,6 @@
 const userSchema = require("../models/user");
 const categorySchema = require("../models/categories");
+const reviewSchema = require("../models/review");
 const deleteUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -39,5 +40,20 @@ const createCategory = (req, res) => {
       });
     });
 };
-
-module.exports = {deleteUserById,createCategory}
+const deleteCommentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await reviewSchema.findOneAndDelete({ _id: id });
+    res.status(200).json({
+      success: true,
+      message: `comment deleted`,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
+module.exports = { deleteUserById, createCategory,deleteCommentById };

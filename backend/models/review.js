@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const reviewSchema = new mongoose.Schema({
-  comment: {
+  comments: {
     type: String,
     required: true,
   },
