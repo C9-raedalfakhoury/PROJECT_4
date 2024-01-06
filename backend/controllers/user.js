@@ -126,4 +126,5 @@ const editUserInfo = async (req, res) => {
     });
   }
 };
+
 module.exports = { register, login, editUserInfo };

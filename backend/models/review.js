@@ -8,10 +8,10 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  rate: {            // ! "غير مكتملة"
-    type: Number,
-    required: true,
-  },
+  // rate: {            // ! "غير مكتملة"
+  //   type: Number,
+  //   required: true,
+  // },
 
 });
-module.exports = mongoose.model("review", productSchema);
+module.exports = mongoose.model("review", reviewSchema);

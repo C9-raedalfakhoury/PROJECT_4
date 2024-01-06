@@ -1,5 +1,5 @@
 const productSchema = require("../models/product");
-
+const reviewSchema = require("../models/review");
 const addProduct = (req, res) => {
   const { name, description, price, quantity, imageUrl, category, createdBy } =
     req.body;
@@ -76,11 +76,13 @@ const updateProductById = async (req, res) => {
       category,
       createdBy,
     } = req.body;
-    const result = await productSchema.findOneAndUpdate(
-      { _id: id },
-      { name, description, price, quantity, imageUrl, category, createdBy },
-      { new: true }
-    ).populate("category createdBy","name firstName-_id");
+    const result = await productSchema
+      .findOneAndUpdate(
+        { _id: id },
+        { name, description, price, quantity, imageUrl, category, createdBy },
+        { new: true }
+      )
+      .populate("category createdBy", "name firstName-_id");
     res.status(200).json({
       success: true,
       message: `product updated`,
@@ -94,4 +96,43 @@ const updateProductById = async (req, res) => {
     });
   }
 };
-module.exports = { addProduct, getAllProduct, deleteProductById ,updateProductById};
+const createNewComment = (req, res) => {
+  const { id } = req.params;
+  const commenter = req.token.id;
+  const { comment } = req.body;
+  const review = new reviewSchema({
+    comment,
+    commenter,
+  });
+  review
+    .save()
+    .then(async (result) => {
+      await productSchema.findOneAndUpdate(
+        { _id: id },
+        {
+          $push: { comments: result._id },
+        }
+      );
+      console.log("result from create commet",result);
+      res.status(201).json({
+        success: true,
+        message: `Comment created`,
+        comment: result,
+      });
+    })
+    .catch((err) => {
+      console.log("error from create comments",err);
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    });
+};
+module.exports = {
+  addProduct,
+  getAllProduct,
+  deleteProductById,
+  updateProductById,
+  createNewComment
+};
