@@ -4,8 +4,7 @@ const bcryptjs = require("bcryptjs");
 const register = (req, res) => {
   const {
     firstName,
-    lastName,
-    age,
+    lastName, 
     country,
     email,
     password,
@@ -15,8 +14,7 @@ const register = (req, res) => {
   } = req.body;
   const users = new userSchema({
     firstName,
-    lastName,
-    age,
+    lastName, 
     country,
     email,
     password,
@@ -74,14 +72,14 @@ const login = (req, res) => {
                       "Add_products_to_cart",
                       "add_products",
                       "create_comments",
-                      "delete_product"
+                      "delete_product",
                     ]
                   : [
                       "Manage_products",
                       "View_orders",
                       "Manage_users",
                       "Delete_comments",
-                      "add_category"
+                      "add_category",
                     ],
             },
           };
@@ -106,4 +104,26 @@ const login = (req, res) => {
       });
     });
 };
-module.exports = { register, login };
+const editUserInfo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, addres, phoneNumber } = req.body;
+    const result = await userSchema.findOneAndUpdate(
+      { _id: id },
+      { firstName,lastName,addres,phoneNumber },
+      { new: true }
+    );
+    res.status(200).json({
+      success: true,
+      message: `updated`,
+      user: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
+module.exports = { register, login, editUserInfo };
