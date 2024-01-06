@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken");
-const authentication = (req, res, next) => {
-  console.log("fron authen",req.headers.authorization);
+const authentication = (req, res, next) => { 
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];
     try {
       const SECRET = process.env.SECRET;
       const signture = jwt.verify(token, SECRET);
-      console.log("signture from authntication.js line 8", signture);
+      // console.log("signture from authntication.js line 8", signture);
       req.token = signture;
       next();
     } catch (error) {

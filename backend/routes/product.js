@@ -10,7 +10,7 @@ const {
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 productRouter.post(
-  "/createProduct",
+  "/addProduct",
   authentication,
   authorization("add_products"),
   addProduct

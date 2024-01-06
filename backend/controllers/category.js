@@ -1,4 +1,4 @@
-
+const categorySchema = require('../models/categories')
 const deleteCategoryById = async (req, res) => {
   try {
     const { id } = req.params;

@@ -1,10 +1,12 @@
 const userSchema = require("../models/user");
+const cartSchema = require("../models/cart");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
+const express = require("express");
 const register = (req, res) => {
   const {
     firstName,
-    lastName, 
+    lastName,
     country,
     email,
     password,
@@ -14,7 +16,7 @@ const register = (req, res) => {
   } = req.body;
   const users = new userSchema({
     firstName,
-    lastName, 
+    lastName,
     country,
     email,
     password,
@@ -25,6 +27,26 @@ const register = (req, res) => {
   users
     .save()
     .then((result) => {
+      const cart = new cartSchema({
+        user: result._id,
+        products: [],
+      });
+      cart
+        .save()
+        .then((result) => {
+          res.status(201).json({
+            success: true,
+            message: "Cart Create successfully",
+            result: result,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: true,
+            message: "Server Error",
+            err: err,
+          });
+        });
       res.status(201).json({
         success: true,
         message: "Account Created Successfully",
@@ -110,7 +132,7 @@ const editUserInfo = async (req, res) => {
     const { firstName, lastName, addres, phoneNumber } = req.body;
     const result = await userSchema.findOneAndUpdate(
       { _id: id },
-      { firstName,lastName,addres,phoneNumber },
+      { firstName, lastName, addres, phoneNumber },
       { new: true }
     );
     res.status(200).json({

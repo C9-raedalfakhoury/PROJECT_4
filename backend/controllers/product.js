@@ -99,7 +99,7 @@ const updateProductById = async (req, res) => {
 const createNewComment = (req, res) => {
   const { id } = req.params;
   const commenter = req.token.id;
-  const { comments, rate } = req.body;
+  const { comments } = req.body;
   const review = new reviewSchema({
     comments,
     commenter,
@@ -135,4 +135,5 @@ module.exports = {
   deleteProductById,
   updateProductById,
   createNewComment,
+  // get product by user id
 };
