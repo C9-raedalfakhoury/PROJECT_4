@@ -1,4 +1,5 @@
 const cartSchema = require("../models/cart");
+const itemSchema= require("../models/item")
 
 const getCart = async (req, res) => {
   try {
@@ -35,36 +36,35 @@ const deleteProductBy = (req, res) => {
     });
 };
 
-const addToCart = (req, res) => {
+const addToCart = async (req, res) => {
   const { id } = req.params;
-  const { quantity } = req.body;
+  const { product } = req.body;
 
   const userId = req.token.id;
   console.log(userId);
-  cartSchema
-    .findOneAndUpdate(
+  const item = new itemSchema(product);
+  try {
+    const result = await item.save();
+    const editCart = await cartSchema.findOneAndUpdate(
       { user: userId },
       {
-        $push: { products: id, quantity: quantity },
+        $push: { products: result._id },
       }
-    )
-    .then((result) => {
-      console.log("from add to cart", result);
-      res.status(201).json({
-        success: true,
-        message: `add product to cart successfully`,
-        result: result,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        success: false,
-        message: "Server Error",
-        err: err,
-      });
+    );
+
+    res.status(201).json({
+      success: true,
+      message: `add product to cart successfully`,
+      result: editCart,
     });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: err,
+    });
+  }
 };
-module.exports = { getCart, addToCart ,deleteProductBy};
+module.exports = { getCart, addToCart, deleteProductBy };
 
 //  add product /

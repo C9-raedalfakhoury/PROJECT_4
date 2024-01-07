@@ -62,10 +62,6 @@ const register = (req, res) => {
 };
 const login = (req, res) => {
   const { email, password } = req.body;
-  const users = new userSchema({
-    email,
-    password,
-  });
   userSchema
     .findOne({ email })
     .then(async (result) => {
