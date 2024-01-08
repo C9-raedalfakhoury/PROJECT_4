@@ -6,9 +6,11 @@ box-sizing: border-box;
 .Navbar{
 display: flex;
 justify-content: space-evenly;
-padding: 0px 60px 60px 60px;
-height: 134px;
+padding: 0px 60px 0px 60px;
+margin: 0px 60px 0px 60px;
+height: 95px;
 align-items: center;
+background: linear-gradient(to bottom, #808080, #ffffff);
 }
 input{
     background-color: transparent;

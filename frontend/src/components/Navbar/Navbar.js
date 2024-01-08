@@ -15,6 +15,7 @@ const Navbar = () => {
       </div>
       <div className="link">
         <input type="button" value="Home" />
+        <input type="button" value="Category" />
         <input type="button" value="About" />
         <input type="button" value="Contact" />
        
