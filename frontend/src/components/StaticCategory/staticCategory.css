@@ -6,8 +6,7 @@
 .static {
   text-align: center;
   display: grid;
-  grid-template-columns: auto auto;
-  /* background-color: #f6f6f9; */
+  grid-template-columns: auto auto; 
   background: linear-gradient(to bottom, #808080, #ffffff);
   gap: 20px;
   justify-content: center;

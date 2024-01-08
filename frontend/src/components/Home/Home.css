@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+} 
+.productCard {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap; 
+  background: linear-gradient(to top, #808080, #ffffff);
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 60px 10px 60px;
+  margin: 0px 60px 0px 60px;
+}
+.imgCard {
+  grid-template-columns: auto auto;
+  height: 280px;
+  width: 300px;
+  border-radius: 10%;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.oneProductCard{
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+}
+.iconPrice{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

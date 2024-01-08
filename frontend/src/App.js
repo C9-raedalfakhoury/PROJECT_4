@@ -1,11 +1,29 @@
 /* eslint-disable no-unused-vars */
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
-import StaticCategory from "./components/Navbar/StaticCategory/StaticCategory";
+import axios from "axios";
+import Home from "../src/components/Home/Home.js";
+import LoginAndRegister from "./components/LoginAndRegister/LoginAndRegister.js";
+import About from "./components/ِAbout/About.js";
 export const DataShare = createContext();
 function App() {
+  const [products, setProducts] = useState([]);
+  console.log(products[0]?.category?.name[0]);
+  const getAllProduct = async () => {
+    try {
+      const result = await axios.get("http://localhost:5000/products/");
+      const data = await result.data;
+      console.log(data.products);
+      setProducts(data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllProduct();
+  }, []);
   const categories = [
     {
       title: "FURNITURE",
@@ -22,13 +40,13 @@ function App() {
     {
       title: "CLOTHES",
       src: "https://uniqlo-2.myshopify.com/cdn/shop/articles/30.jpg?v=1511411380",
-    }, 
+    },
   ];
   return (
-    <DataShare.Provider value={{ categories }}>
+    <DataShare.Provider value={{ categories, products }}>
       <div className="App">
-        <Navbar />
-        
+        <Navbar /> 
+        <About/>
       </div>
     </DataShare.Provider>
   );

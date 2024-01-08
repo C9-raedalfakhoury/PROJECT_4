@@ -7,25 +7,22 @@ import { HiOutlineShoppingCart } from "react-icons/hi2";
 const Navbar = () => {
   return (
     <div className="Navbar">
-      <div className="img">
-        <img
-          src="https://uniqlo-3.myshopify.com/cdn/shop/files/uniqlo_medium.png?v=1613541803"
-          alt=""
-        ></img>
+      <div className="logoText">
+        <h2 data-text="Creative..." className="creative">
+        Creative...
+        </h2>
       </div>
       <div className="link">
         <input type="button" value="Home" />
         <input type="button" value="Category" />
         <input type="button" value="About" />
         <input type="button" value="Contact" />
-       
       </div>
-      <div className="icon" >
-        <CiSearch className="searchIcon"/>
-        <MdOutlinePerson3  className="personIcon" />
-        <HiOutlineShoppingCart className="cartIcon"/>
-
-        </div>
+      <div className="icon">
+        <CiSearch className="searchIcon" />
+        <MdOutlinePerson3 className="personIcon" />
+        <HiOutlineShoppingCart className="cartIcon" />
+      </div>
     </div>
   );
 };
