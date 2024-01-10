@@ -6,6 +6,7 @@ const {
   deleteProductById,
   updateProductById,
   createNewComment,
+  getProductByCategoryId,
 } = require("../controllers/product");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
@@ -27,7 +28,8 @@ productRouter.put(
   authorization("add_products"),
   updateProductById
 );
-productRouter.post("/", authentication, getAllProduct);
+productRouter.get("/", getAllProduct);
+productRouter.get("/:id/products", getProductByCategoryId);
 productRouter.post(
   "/:id/comments",
   authentication,

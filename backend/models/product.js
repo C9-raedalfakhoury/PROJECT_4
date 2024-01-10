@@ -4,16 +4,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rate:{type:String},
   description: {
     type: String,
     required: true,
   },
   price: {
     type: Number,
-    required: true,
-  },
-  quantity: {
-    type: String,
     required: true,
   },
   imageUrl: [

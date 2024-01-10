@@ -1,13 +1,14 @@
 const productSchema = require("../models/product");
 const reviewSchema = require("../models/review");
+const categorySchema = require("../models/categories");
 const addProduct = (req, res) => {
-  const { name, description, price, quantity, imageUrl, category, createdBy } =
+  const { name, rate, description, price, imageUrl, category, createdBy } =
     req.body;
   const products = new productSchema({
     name,
+    rate,
     description,
     price,
-    quantity,
     imageUrl,
     category,
     createdBy,
@@ -86,7 +87,7 @@ const updateProductById = async (req, res) => {
     res.status(200).json({
       success: true,
       message: `product updated`,
-      article: result,
+      result: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -129,11 +130,28 @@ const createNewComment = (req, res) => {
       });
     });
 };
+const getProductByCategoryId = async (req, res) => {
+  try {
+    const { id } = req.params;
+   const result = await productSchema.find({ category: id })
+    res.status(201).json({
+      success: true,
+      message: `successfully`,
+      result: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
 module.exports = {
   addProduct,
   getAllProduct,
   deleteProductById,
   updateProductById,
   createNewComment,
-  // get product by user id
+  getProductByCategoryId,
 };

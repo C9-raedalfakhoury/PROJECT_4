@@ -20,9 +20,10 @@ const deleteUserById = async (req, res) => {
 };
 
 const createCategory = (req, res) => {
-  const { name } = req.body;
+  const { name ,imageUrl} = req.body;
   const category = new categorySchema({
     name,
+    imageUrl
   });
   category
     .save()

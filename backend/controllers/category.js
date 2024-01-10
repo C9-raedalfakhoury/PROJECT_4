@@ -1,4 +1,4 @@
-const categorySchema = require('../models/categories')
+const categorySchema = require("../models/categories");
 const deleteCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -27,7 +27,7 @@ const updateCategoryById = async (req, res) => {
     res.status(200).json({
       success: true,
       message: `category updated`,
-      article: result,
+      result: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -37,4 +37,20 @@ const updateCategoryById = async (req, res) => {
     });
   }
 };
-module.exports = {  deleteCategoryById, updateCategoryById };
+const getAllCategory = async (req, res) => {
+  try {
+    const result = await categorySchema.find();
+    res.status(200).json({
+      success: true,
+      message: `get successfully`,
+      result: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
+module.exports = { deleteCategoryById, updateCategoryById, getAllCategory };
