@@ -1,0 +1,32 @@
+.contact {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 60px;
+    align-items: center;
+  }
+  .banner {
+    font-size: 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+  }
+  .leftRightContact{
+    display: flex;
+    gap: 255px;
+    margin-top: 10px;
+  }
+  .left{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .phone{
+    display: flex;
+    gap: 10px;
+
+  }
+ 

@@ -28,9 +28,22 @@
     display: flex;
     flex-direction: column;
     background-color: #FFFFFF;
+    border-radius: 10%;
 }
 .iconPrice{
     display: flex;
     justify-content: center;
     gap: 20px;
+}
+.swal2-title{
+  font-size: 18px;
+  font-weight: 500;
+  width: 500px;
+height: min-content;
+  padding: 0px;
+  margin: 0px;
+}
+.div:where(.swal2-container) img:where(.swal2-image){
+  margin: 0px;
+  padding: 0px;
 }

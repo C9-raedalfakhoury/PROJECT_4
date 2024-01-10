@@ -7,7 +7,7 @@
   text-align: center;
   display: grid;
   grid-template-columns: auto auto; 
-  background: linear-gradient(to bottom, #808080, #ffffff);
+  background: linear-gradient(to top, #808080, #ffffff);
   gap: 20px;
   justify-content: center;
   align-items: center;
