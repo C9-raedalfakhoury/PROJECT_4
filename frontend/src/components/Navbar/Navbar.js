@@ -55,6 +55,7 @@ const Navbar = () => {
         <MdOutlinePerson3
           onClick={() => {
             navigate("/Login");
+            setToggleHome(false)
           }}
           className="personIcon"
         />

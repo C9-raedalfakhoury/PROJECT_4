@@ -11,9 +11,7 @@
   background: linear-gradient(to top, #808080, #ffffff);
   gap: 20px;
   justify-content: center;
-  align-items: center;
-  padding: 10px 60px 10px 60px;
-  margin: 0px 60px 0px 60px;
+  align-items: center; 
 }
 .imgCard {
   grid-template-columns: auto auto;

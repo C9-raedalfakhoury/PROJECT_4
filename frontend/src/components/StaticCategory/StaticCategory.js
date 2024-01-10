@@ -1,17 +1,34 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from "react";
-import "../StaticCategory/staticCategory.css"
+import "../StaticCategory/staticCategory.css";
 import { ApplicationContext } from "../../App";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const StaticCategory = () => {
-  const { category } = useContext(ApplicationContext);
+  const navigate = useNavigate();
+
+  const { category, setCategoryId, setToggleHome, setProductByCategory ,productByCategory} =
+    useContext(ApplicationContext); 
   return (
     <div className="static">
       {category?.map((item, i) => {
-        console.log(item);
+        console.log(item._id);
         return (
-          <button onClick={(e)=>{
-            console.log(e.target);
-          }}
+          <button
+            onClick={async (e) => {
+              try {
+                setCategoryId(item._id);
+                navigate("/ProductByCategoryId");
+                setToggleHome(false);
+                const result = await axios.get(
+                  `http://localhost:5000/products/${item._id}/products`
+                );
+                setProductByCategory(result?.data?.result); 
+              } catch (error) {
+                console.log(error?.response?.data?.message);
+              }
+            }}
             className="staticImg"
             key={i}
             style={{
