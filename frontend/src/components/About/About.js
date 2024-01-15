@@ -1,5 +1,5 @@
 import React from "react";
-import "../ِAbout/About.css";
+import "../About/About.css";
 import { CiHeart } from "react-icons/ci";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FiRefreshCw } from "react-icons/fi";

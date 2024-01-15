@@ -2,9 +2,9 @@
 import React, { useContext } from "react";
 import { ApplicationContext } from "../../App";
 import Swal from "sweetalert2";
-import '../ProductByCategoryId/ProductByCategoryId.css'
+import "../ProductByCategoryId/ProductByCategoryId.css";
 const ProductByCategoryId = () => {
-  const { setCategoryId, productByCategory } = useContext(ApplicationContext);
+  const { productByCategory } = useContext(ApplicationContext);
   return (
     <div className="specificCategory">
       {productByCategory?.map((item, i) => {

@@ -4,15 +4,17 @@ box-sizing: border-box;
     padding: 0px;
 }
 .Navbar{
-display: flex;
-justify-content: space-evenly; 
-height: 95px;
-align-items: center;
-background: linear-gradient(to bottom, #808080, #ffffff);
+    display: flex;
+    justify-content: space-between;
+    height: 95px;
+    align-items: center;
+    background: linear-gradient(to bottom, #808080, #ffffff);
+    padding: 0px 30px;
 }
 input{
     background-color: transparent;
     border: 0px;
+    font-size: 30px;
 }
 input:hover{
     color: red;
@@ -26,6 +28,7 @@ input:hover{
 .icon{
     display: flex; 
     gap: 35px;
+    align-items: center;
 } 
 .searchIcon{
     font-size: 24px;
@@ -33,19 +36,16 @@ input:hover{
     transition: transform 0.3s ease-in-out;
 }
 .personIcon{
-    font-size: 24px;
+    font-size: 30px;
     gap: 35px;
     transition: transform 0.3s ease-in-out;
 }
 .cartIcon{
-    font-size: 24px;
+    font-size: 30px;
     gap: 35px;
     transition: transform 0.3s ease-in-out;
 }
-.searchIcon:hover{
-    color: red;
-    transform: scale(1.5);
-}
+ 
 .personIcon:hover{
     color: red;
     transform: scale(1.5);
@@ -84,3 +84,64 @@ text-transform: uppercase;
         width: 100%;
     }
 }
+.searchBox {
+    display: flex;
+    max-width: 230px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #2f3640;
+    border-radius: 50px;
+    position: relative;
+    color: white;
+  }
+  
+  .searchButton {
+    color: white;
+    position: absolute;
+    right: 8px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #009EFD 100%));
+    border: 0;
+    display: inline-block;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  }
+  /*hover effect*/
+  button:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+    transform: translateY(-3px);
+  }
+  /*button pressing effect*/
+  button:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+  
+  .searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+     padding: 25px 10px;
+    height: 30px;
+  }
+  .searchInput:hover{
+    color: white;
+  }
+   .counter{
+    position: absolute;
+    top: 2.3%;
+    right: 2.5%;
+    background-color: orange;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 2px;
+    align-items: center;
+   }

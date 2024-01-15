@@ -1,21 +1,18 @@
+/* eslint-disable no-whitespace-before-property */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../LoginAndRegister/LoginAndRegister.css";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { ApplicationContext } from "../../App";
+import { json, useNavigate } from "react-router-dom";
 const LoginAndRegister = () => {
-  const [register, setRegister] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    isValidEmail: "",
-    toggleEmail: false,
-    togglePassword: false,
-    isValidPassword: "",
-  });
-  console.log(register.isValidEmail);
-  // const [isRegister, setIsRegister] = useState({ success: true, message: "" });
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState(true);
+  const { token, setToken, setToggleHome, setUserInfo, userInfo } =
+    useContext(ApplicationContext);
+  const [register, setRegister] = useState({});
+  const [login, setLogin] = useState({});
   return (
     <div className="LoginAndRegister">
       <div className="title">
@@ -48,74 +45,143 @@ const LoginAndRegister = () => {
       </div>
       {toggle ? (
         <div className="login">
-          <input className="input" placeholder="Email"></input>
-          <input className="input" placeholder="Password"></input>
-          <button onClick={() => {}} className="button">
+          <input
+            className="input"
+            placeholder="Email"
+            type="email"
+            required
+            onChange={(e) => {
+              setLogin((prevObject) => {
+                return { ...prevObject, email: e.target.value };
+              });
+            }}
+          ></input>
+          <input
+            className="input"
+            placeholder="Password"
+            type="password"
+            required
+            onChange={(e) => {
+              setLogin((prevObject) => {
+                return { ...prevObject, password: e.target.value };
+              });
+            }}
+          ></input>
+          <button
+            onClick={async () => {
+              try {
+                const result = await axios.post(
+                  "http://localhost:5000/users/login",
+                  login
+                );
+                console.log(result);
+                setToken(result.data.token);
+                localStorage.setItem("token", result.data.token);
+                setUserInfo(result.data);
+                localStorage.setItem("userInfo", JSON.stringify(result.data));
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Valid login credentials",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+                setTimeout(() => {
+                  navigate("/Home");
+                  setToggleHome(true);
+                }, 1500);
+              } catch (error) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: `${error?.response?.data?.message}`,
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+            }}
+            className="button"
+          >
             Login
           </button>
         </div>
       ) : (
         <div className="register">
-          <input
-            onChange={(e) => {
-              setRegister({ firstName: e.target.value });
-            }}
-            className="input"
-            placeholder="First Name"
-          ></input>
-          <input
-            onChange={(e) => {
-              setRegister({ lastName: e.target.value });
-            }}
-            className="input"
-            placeholder="Last Name"
-          ></input>
-          <input
-            onChange={(e) => {
-              setRegister({ email: e.target.value });
-            }}
-            className="input"
-            placeholder="Email"
-            type="email"
-            required
-          ></input>
-          <input
-            onChange={(e) => {
-              setRegister({ password: e.target.value });
-            }}
-            className="input"
-            placeholder="Password"
-            type="password"
-            required
-          ></input>
-          <button
-            type="submit"
-            onClick={() => {
-              if (
-                (!register.email?.includes("@") ||
-                  !register.email?.includes(".com")) &&
-                register.password?.length < 6
-              ) {
-                setRegister({ isValidEmail: "The Email Not Vaild" });
-                setRegister({ toggleEmail: true }); 
-                console.log(register.toggleEmail);
-                setRegister({
-                  isValidPassword: "Must Be More Than 6 Numers Or Words",
+          <form>
+            <input
+              onChange={(e) => {
+                setRegister((prevObject) => {
+                  return {
+                    ...prevObject,
+                    userName: e.target.value,
+                  };
                 });
-                setRegister({ togglePassword: true });
-              } 
-              console.log(register.togglePassword);
-            }}
-            className="button"
-          >
-            Create
-          </button>
-          <>
-            <div>{register?.email?.includes("@") ? `The Email Not Vaild` : ``}</div>
-            <div>
-              {register?.togglePassword ? `The Password Not Vaild` : ``}
-            </div>
-          </>
+              }}
+              className="input"
+              placeholder="First Name"
+            ></input>
+
+            <input
+              onChange={(e) => {
+                setRegister((prevObject) => {
+                  return {
+                    ...prevObject,
+                    email: e.target.value,
+                  };
+                });
+              }}
+              className="input"
+              placeholder="Email"
+              type="email"
+              required
+            ></input>
+            <input
+              onChange={(e) => {
+                setRegister((prevObject) => {
+                  return {
+                    ...prevObject,
+                    password: e.target.value,
+                  };
+                });
+              }}
+              className="input"
+              placeholder="Password"
+              type="password"
+              required
+            ></input>
+            <button
+              type="reset"
+              onClick={async (e) => {
+                axios
+                  .post("http://localhost:5000/users/register", register)
+                  .then((result) => {
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title: "Account Created Successfully",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                    setTimeout(() => {
+                      setToggle(true);
+                      navigate("/Login");
+                    }, 1500);
+                  })
+                  .catch((error) => {
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: `${error?.response?.data?.message}`,
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  });
+              }}
+              className="button"
+            >
+              Create
+            </button>
+          </form>
         </div>
       )}
     </div>

@@ -1,19 +1,31 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../StaticCategory/staticCategory.css";
 import { ApplicationContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const StaticCategory = () => {
+   const [category, setCategory] = useState([]);
+  const getAllCategory = async () => {
+    try {
+      const result = await axios.get("http://localhost:5000/category/all");
+      const data = await result.data;
+      setCategory(data.result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllCategory();
+  }, []);
   const navigate = useNavigate();
 
-  const { category, setCategoryId, setToggleHome, setProductByCategory ,productByCategory} =
-    useContext(ApplicationContext); 
+  const { setCategoryId, setToggleHome, setProductByCategory } =
+    useContext(ApplicationContext);
   return (
     <div className="static">
       {category?.map((item, i) => {
-        console.log(item._id);
         return (
           <button
             onClick={async (e) => {
@@ -24,7 +36,7 @@ const StaticCategory = () => {
                 const result = await axios.get(
                   `http://localhost:5000/products/${item._id}/products`
                 );
-                setProductByCategory(result?.data?.result); 
+                setProductByCategory(result?.data?.result);
               } catch (error) {
                 console.log(error?.response?.data?.message);
               }

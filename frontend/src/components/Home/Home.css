@@ -7,15 +7,15 @@
 .productCard {
   text-align: center;
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   background: linear-gradient(to top, #808080, #ffffff);
   gap: 20px;
   justify-content: center;
-  align-items: center; 
+  align-items: self-start; 
 }
 .imgCard {
   grid-template-columns: auto auto;
-  height: 280px;
+  height: 300px;
   width: 300px;
   border-radius: 10%;
   border: 0px;
@@ -29,9 +29,8 @@
     border-radius: 10%;
 }
 .iconPrice{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 .swal2-title{
   font-size: 18px;
@@ -44,4 +43,8 @@ height: min-content;
 .div:where(.swal2-container) img:where(.swal2-image){
   margin: 0px;
   padding: 0px;
+}
+.addToCart:hover{
+  color: red;
+  transform: scale(1.2);
 }
