@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import "../Cart/Cart.css";
 import { ApplicationContext } from "../../App";
 const Cart = () => {
-  const {cartData} = useContext(ApplicationContext);
-  console.log(cartData.cart); 
+  const {cartData} = useContext(ApplicationContext);  
    return (
     <div className="main">
       <div className="panel">
@@ -14,12 +13,11 @@ const Cart = () => {
         <p className="products">Remove</p>
       </div>
       <div className="product">
-        {cartData.cart?.map((item,i)=>{
-          console.log(item);
+        {cartData.cart?.map((item,i)=>{ 
           return ( <>
-          <img key={item?._id} alt="" src={item?.product.imageUrl}></img>
-          <p>Q{item?.product.quantity}</p>
-          <p>p{item?.product.price}</p>
+          <img key={item?._id} alt="" src={item?.products.imageUrl}></img>
+          <p>Q{item?.quantity}</p>
+          <p>p{item?.products.price}</p>
           </>
           )
         })}

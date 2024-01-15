@@ -21,6 +21,7 @@ const Navbar = () => {
     cartData,
     setCartData,
   } = useContext(ApplicationContext);
+  console.log(cartData);
   return (
     <div className="Navbar">
       <div className="logoText">
@@ -165,8 +166,10 @@ const Navbar = () => {
         <HiOutlineShoppingCart
           className="cartIcon"
           onClick={async () => {
+            setToggleHome(false);
+            navigate("/Cart");
             try {
-              const response = await axios.get(
+              const resultCart = await axios.get(
                 `http://localhost:5000/cart/${userInfo.result._id}`,
                 {
                   headers: {
@@ -174,13 +177,13 @@ const Navbar = () => {
                   },
                 }
               );
-              console.log(response.data.products);
-              const cart = response.data.products[0].products;
+
+              const cart = resultCart.data.products;
               setCartData((previos) => {
                 return { ...previos, cart };
               });
-              setToggleHome(false);
-              navigate("/Cart");
+              console.log(cart);
+              // (previos) => {return { ...previos, cart };}
             } catch (error) {
               console.log(error);
             }

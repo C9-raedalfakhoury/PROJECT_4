@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
@@ -10,10 +11,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 const Home = () => {
-  let { filter, token, setToggleHome, setCounter, counter ,userInfo} =
-    useContext(ApplicationContext); 
-
-  const [products, setProducts] = useState([]);
+  let {
+    filter,
+    token,
+    setToggleHome,
+    setCounter,
+    counter,
+    userInfo, 
+    setCartData,
+  } = useContext(ApplicationContext);
+   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const navigate = useNavigate();
   function shuffleProduct(products) {
@@ -33,7 +40,7 @@ const Home = () => {
       const data = await result.data;
       shuffleProduct(data.products);
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -51,7 +58,7 @@ const Home = () => {
   }, [filter?.productName]);
   return (
     <div className="productCard">
-      {products?.map((item, i) => {  
+      {products?.map((item, i) => {
         return (
           <div className="oneProductCard" key={i}>
             <img
@@ -91,8 +98,7 @@ const Home = () => {
               <p>{item?.rate}</p>
               <BiCartAdd
                 className="addToCart"
-                onClick={() => {
-                  console.log(item);
+                onClick={async () => { 
                   if (!token) {
                     Swal.fire({
                       title: "Please Login?",
@@ -108,8 +114,8 @@ const Home = () => {
                         setToggleHome(false);
                       }
                     });
-                  } else {
-                    console.log(item._id);
+                  } else { 
+
                     setCounter((counter += 1));
                     setProduct({
                       price: item?.price,
@@ -120,9 +126,9 @@ const Home = () => {
                       price: item?.price,
                       quantity: counter,
                       product: item._id,
-                    }; 
-                    axios
-                      .post(
+                    };
+                    try {
+                      const response = await axios.post(
                         `http://localhost:5000/cart/${item._id}/addtocart`,
                         { product: test },
                         {
@@ -130,13 +136,13 @@ const Home = () => {
                             Authorization: `Bearer ${token}`,
                           },
                         }
-                      )
-                      .then((result) => {
-                        console.log(result);
-                      })
-                      .catch((err) => {
-                        console.log(err); 
-                      });
+                      );
+                      console.log(response.data);
+                    } catch (error) {
+                      console.log(error);
+                    }
+
+                 
                   }
                   {
                   }

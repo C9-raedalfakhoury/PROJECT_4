@@ -27,7 +27,7 @@ function App() {
   const initialUserInfo = storedUserInfo ? JSON.parse(storedUserInfo) : {};
   const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [cartData, setCartData] = useState([]);
-  // console.log(productInCart);
+  console.log(cartData);
   return (
     <ApplicationContext.Provider
       value={{
