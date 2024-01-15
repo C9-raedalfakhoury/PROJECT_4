@@ -28,7 +28,8 @@ productRouter.put(
   authorization("add_products"),
   updateProductById
 );
-productRouter.get("/", getAllProduct);
+productRouter.get("", getAllProduct);
+
 productRouter.get("/:id/products", getProductByCategoryId);
 productRouter.post(
   "/:id/comments",

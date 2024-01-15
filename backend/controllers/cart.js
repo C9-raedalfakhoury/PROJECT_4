@@ -1,15 +1,37 @@
 const cartSchema = require("../models/cart");
-const itemSchema= require("../models/item")
+const itemSchema = require("../models/item");
 
 const getCart = async (req, res) => {
   try {
-    const result = await cartSchema.find().populate("product user");
+    const result = await cartSchema.find().populate("products user");
     res.status(200).json({
       success: true,
       message: "All Cart",
       products: result,
     });
   } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
+const getCartByUserId = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const result = await cartSchema
+      .find({ user: userId })
+      .populate("products")
+      .populate("user");
+    res.status(200).json({
+      success: true,
+      message: "Cart By User Id",
+      products: result,
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -37,34 +59,112 @@ const deleteProductBy = (req, res) => {
 };
 
 const addToCart = async (req, res) => {
+  console.log(req);
+  /*
+  token: {
+    id: '659bd213464d64fab573565c',
+    role: { role: 'user', permissions: [Array] },
+    iat: 1705165243,
+    exp: 1705168843
+  },
+  */
+
+  // product id from params
   const { id } = req.params;
-  const { product } = req.body;
-
+  /*
+  {
+    "product": {
+        "price": 12,
+        "quantity": 12,
+        "product": "65999528c84b9e1544918b20"
+    }
+}
+  */
+  // const { product } = req.body;
   const userId = req.token.id;
-  console.log(userId);
-  const item = new itemSchema(product);
+  const filter = { user: userId, products: id };
+  const update = { $inc: { quantity: 1 } };
   try {
-    const result = await item.save();
-    const editCart = await cartSchema.findOneAndUpdate(
-      { user: userId },
-      {
-        $push: { products: result._id },
-      }
-    );
+    // const result = await item.save();
 
-    res.status(201).json({
-      success: true,
-      message: `add product to cart successfully`,
-      result: editCart,
+    const editCart = await cartSchema.findOneAndUpdate(filter, update, {
+      new: true,
     });
+
+    console.log("editCart", editCart);
+    if (editCart) {
+      return res.status(201).json({
+        success: true,
+        message: `add product to cart successfully`,
+        result: editCart,
+      });
+    } else {
+      const newcart = new cartSchema({
+        user: userId,
+        products: id,
+      });
+      const cart = await newcart.save();
+      console.log(cart);
+      res.status(201).json({
+        success: true,
+        message: `add product to cart successfully`,
+        result: cart,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Server Error",
-      err: err,
+      err: error,
     });
   }
 };
-module.exports = { getCart, addToCart, deleteProductBy };
+module.exports = { getCart, addToCart, deleteProductBy, getCartByUserId };
 
 //  add product /
+
+// const addToCart = async (req, res) => {
+
+//   token: {
+//     id: '659bd213464d64fab573565c',
+//     role: { role: 'user', permissions: [Array] },
+//     iat: 1705165243,
+//     exp: 1705168843
+//   },
+
+// product id from params
+// const { id } = req.params;
+
+//   {
+//     "product": {
+//         "price": 12,
+//         "quantity": 12,
+//         "product": "65999528c84b9e1544918b20"
+//     }
+// }
+//   const { product } = req.body;
+//   const userId = req.token.id;
+//   const item = new itemSchema(product);
+//   try {
+//     const result = await item.save();
+//     const editCart = await cartSchema.findOneAndUpdate(
+//       { user: userId },
+//       {
+//         $push: { products: result._id },
+//       },
+//       { new: true }
+//     );
+
+//     res.status(201).json({
+//       success: true,
+//       message: `add product to cart successfully`,
+//       result: editCart,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: "Server Error",
+//       err: err,
+//     });
+//   }
+// }

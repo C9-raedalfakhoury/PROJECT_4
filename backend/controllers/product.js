@@ -2,7 +2,7 @@ const productSchema = require("../models/product");
 const reviewSchema = require("../models/review");
 const categorySchema = require("../models/categories");
 const addProduct = (req, res) => {
-  const { name, rate, description, price, imageUrl, category, createdBy } =
+  const { name, rate, description, price, imageUrl, category } =
     req.body;
   const products = new productSchema({
     name,
@@ -11,7 +11,6 @@ const addProduct = (req, res) => {
     price,
     imageUrl,
     category,
-    createdBy,
   });
   products
     .save()
@@ -31,10 +30,17 @@ const addProduct = (req, res) => {
     });
 };
 const getAllProduct = (req, res) => {
+  const { filter } = req.query;
+
+  let query = {};
+  if (filter) {
+    query = { name: { $regex: filter, $options: "i" } };
+  }
   productSchema
-    .find()
-    .populate("createdBy category", "firstName-_id name")
+    .find(query)
+    .populate("category", "name")
     .then((result) => {
+      console.log(filter, result);
       res.status(200).json({
         success: true,
         message: "All the products",
@@ -133,7 +139,10 @@ const createNewComment = (req, res) => {
 const getProductByCategoryId = async (req, res) => {
   try {
     const { id } = req.params;
-   const result = await productSchema.find({ category: id })
+    const result = await productSchema
+      .find({ category: id })
+      .populate("category")
+      .exec();
     res.status(201).json({
       success: true,
       message: `successfully`,

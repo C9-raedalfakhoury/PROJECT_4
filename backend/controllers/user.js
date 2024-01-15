@@ -2,63 +2,53 @@ const userSchema = require("../models/user");
 const cartSchema = require("../models/cart");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
-const express = require("express");
-const register = (req, res) => {
-  const {
-    firstName,
-    lastName,
-    country,
-    email,
-    password,
-    addres,
-    phoneNumber,
-    role,
-  } = req.body;
-  const users = new userSchema({
-    firstName,
-    lastName,
-    country,
-    email,
-    password,
-    addres,
-    phoneNumber,
-    role,
-  });
-  users
-    .save()
-    .then((result) => {
-      const cart = new cartSchema({
-        user: result._id,
-        products: [],
-      });
-      cart
-        .save()
-        .then((result) => {
-          res.status(201).json({
-            success: true,
-            message: "Cart Create successfully",
-            result: result,
-          });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            success: true,
-            message: "Server Error",
-            err: err,
-          });
-        });
-      res.status(201).json({
-        success: true,
-        message: "Account Created Successfully",
-        author: result,
-      });
-    })
-    .catch((err) => {
+const register = async (req, res) => {
+  const { userName, email, password } = req.body;
+  try {
+    const users = new userSchema({
+      userName,
+      email,
+      password,
+      role: "6599365ae4061d69406d4898",
+      // user Role = "6599365ae4061d69406d4898"
+      // admin Role = "65991dd369a49cd5cbda7ea2"
+    });
+    const savedUser = await users.save();
+    // const cart = new cartSchema({
+    //   user: savedUser._id,
+    //   products: [],
+    // });
+    // const savedCart = await cart.save();
+    res.status(201).json({
+      success: true,
+      message: "Account Created Successfully",
+      user: savedUser,
+      cart: savedCart,
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      /*
+      the error.code === 11000 يعني انه يوجد حقل يجب ان يكون فريد وغير متكرر مثل حقل البريد الالكتروني بحسب مخطط المستخدمين
+      index: 0,
+       code: 11000,
+       keyPattern: { email: 1 },
+       keyValue: { email: 'q' },
+       [Symbol(errorLabels)]: Set(0) {}
+      */
+
+      console.log(error);
       res.status(409).json({
         success: false,
         message: "The email already exists",
       });
-    });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: error.message,
+      });
+    }
+  }
 };
 const login = (req, res) => {
   const { email, password } = req.body;
@@ -110,6 +100,7 @@ const login = (req, res) => {
             success: true,
             message: "Valid login credentials",
             token: token,
+            result: result,
           });
         }
       }
