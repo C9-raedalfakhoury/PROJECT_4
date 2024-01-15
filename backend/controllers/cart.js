@@ -42,7 +42,7 @@ const getCartByUserId = async (req, res) => {
 const deleteProductBy = (req, res) => {
   const { id } = req.params;
   cartSchema
-    .findByIdAndDelete({ _id: id })
+    .findByIdAndDelete({ _id: id }, { new: true })
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -71,6 +71,7 @@ const addToCart = async (req, res) => {
 
   // product id from params
   const { id } = req.params;
+  
   /*
   {
     "product": {
@@ -119,6 +120,7 @@ const addToCart = async (req, res) => {
     });
   }
 };
+
 module.exports = { getCart, addToCart, deleteProductBy, getCartByUserId };
 
 //  add product /
