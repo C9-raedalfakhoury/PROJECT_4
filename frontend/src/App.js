@@ -20,14 +20,17 @@ function App() {
   const [categoryId, setCategoryId] = useState("");
   const [productByCategory, setProductByCategory] = useState([]);
   const [toggleHome, setToggleHome] = useState(true);
-  const [counter, setCounter] = useState(0);
-  const [token, setToken] = useState(localStorage.getItem("token" || ""));
+  const [counter, setCounter] = useState(
+    Number(sessionStorage.getItem("counter")) || 0
+  );
+
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   // console.log(token);
   const storedUserInfo = localStorage.getItem("userInfo");
   const initialUserInfo = storedUserInfo ? JSON.parse(storedUserInfo) : {};
   const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [cartData, setCartData] = useState([]);
-  console.log(cartData);
+  
   return (
     <ApplicationContext.Provider
       value={{

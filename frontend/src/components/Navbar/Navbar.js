@@ -14,9 +14,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const {
     setToggleHome,
-    setFilter,
-    counter,
-    userInfo,
+    setFilter, 
+    userInfo,counter,
     token,
     cartData,
     setCartData,
@@ -181,9 +180,7 @@ const Navbar = () => {
               const cart = resultCart.data.products;
               setCartData((previos) => {
                 return { ...previos, cart };
-              });
-              console.log(cart);
-              // (previos) => {return { ...previos, cart };}
+              });  
             } catch (error) {
               console.log(error);
             }

@@ -41,6 +41,27 @@ const Contact = () => {
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
+      <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-section">
+          <h4>About Us</h4>
+          <p>Your e-commerce store description goes here.</p>
+        </div>
+        <div className="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: info@example.com</p>
+          <p>Phone: 123-456-7890</p>
+        </div>
+        <div className="footer-section">
+          <h4>Follow Us</h4>
+          <p>Stay connected on social media:</p>
+          {/* Add social media icons/links here */}
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>&copy; 2024 Your E-Commerce Store. All rights reserved.</p>
+      </div>
+    </footer>
     </div>
   );
 };

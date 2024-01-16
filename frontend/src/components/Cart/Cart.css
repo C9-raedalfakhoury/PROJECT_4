@@ -20,6 +20,37 @@
 }
 .product {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0px 20px;
+}
+.rowOfCart{
+  display: flex;
+  justify-content: space-between;
+}
+.image{
+  width: 100px;
+  height: 100px;
+}
+.quantity{
+  font-size: 20px;
+  font-weight: bold;
+}
+.totalPrice{
+  font-size: 20px;
+  font-weight: bold;
+}
+.price{
+  font-size: 20px;
+  font-weight: bold;
+}
+.iconRabesh{
+  font-size: 40px;
+}
+.totalSum{
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  font-size: 20px;
+  font-weight: bold;
 }

@@ -11,18 +11,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 const Home = () => {
+  const [tokenExpiration, setTokenExpiration] = useState(0);
+
+ 
   let {
     filter,
     token,
     setToggleHome,
     setCounter,
     counter,
-    userInfo, 
+    userInfo,
     setCartData,
   } = useContext(ApplicationContext);
-   const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const navigate = useNavigate();
+  useEffect(() => {
+    setTokenExpiration(Date.now() + 60 * 60 * 1000); // اعتبارًا من الوقت الحالي + 60 دقيقة
+  }, [token]);
   function shuffleProduct(products) {
     const productCopy = [...products];
     for (let i = productCopy.length - 1; i > 0; i--) {
@@ -98,8 +104,8 @@ const Home = () => {
               <p>{item?.rate}</p>
               <BiCartAdd
                 className="addToCart"
-                onClick={async () => { 
-                  if (!token) {
+                onClick={async () => {
+                  if (!token || Date.now() > tokenExpiration) {
                     Swal.fire({
                       title: "Please Login?",
                       text: "You cannot add the product to the cart!",
@@ -114,9 +120,12 @@ const Home = () => {
                         setToggleHome(false);
                       }
                     });
-                  } else { 
-
-                    setCounter((counter += 1));
+                  } else {
+                    setCounter((prevCounter) => {
+                      const newCounter = prevCounter + 1;
+                      sessionStorage.setItem("counter", newCounter);
+                      return newCounter;
+                    });
                     setProduct({
                       price: item?.price,
                       quantity: counter,
@@ -124,7 +133,7 @@ const Home = () => {
                     });
                     const test = {
                       price: item?.price,
-                      quantity: counter,
+                      quantity: localStorage.getItem("counter"),
                       product: item._id,
                     };
                     try {
@@ -141,8 +150,6 @@ const Home = () => {
                     } catch (error) {
                       console.log(error);
                     }
-
-                 
                   }
                   {
                   }
