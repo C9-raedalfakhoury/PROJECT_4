@@ -10,7 +10,6 @@ import "reactjs-popup/dist/index.css";
 import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const navigate = useNavigate();
-  const [popup, setPopup] = useState(false);
   const { cartData, token, userInfo, setCartData, setCounter } =
     useContext(ApplicationContext);
 
@@ -71,16 +70,101 @@ const Cart = () => {
       </div>
       <div className="product">
         {cartData.cart?.map((item, i) => {
+          console.log(cartData.cart);
           return (
             <div className="rowOfCart" key={item._id}>
               <img className="image" alt="" src={item.products.imageUrl}></img>
 
               <div className="plusMinus">
-                <button class="circular-button" onClick={() => {}}>
+                <button 
+                  class={`circular-button `}
+                  style={{pointerEvents:item.quantity === 1 ? "none":"auto",backgroundColor:item.quantity === 1 ? "gray":"black"}}
+                  onClick={async () => {
+                    setCounter((prevCounter) => {
+                      const newCounter = prevCounter - 1;
+                      localStorage.setItem("counter", newCounter);
+                      return newCounter;
+                    });
+                    // setProduct({
+                    //   price: item?.price,
+                    //   quantity: counter,
+                    //   product: item._id,
+                    // });
+                    const test = {
+                      price: item?.price,
+                      quantity: localStorage.getItem("counter"),
+                      product: item._id,
+                    };
+                    try {
+                      const response = await axios.post(
+                        `http://localhost:5000/cart/${item.products._id}/decrease`,
+                        { product: test },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
+                      console.log(response.data);
+                      const cartDataNew = cartData?.cart?.map((elem, i) => {
+                        if (elem.products._id === item.products._id) {
+                          elem.quantity -= 1;
+                        }
+                        return elem;
+                      });
+                      console.log(cartDataNew); 
+                      setCartData({ cart: cartDataNew });
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
                   -
                 </button>
                 <p className="quantity">{item.quantity}</p>
-                <button class="circular-button" onClick={() => {}}>
+                <button
+                  class="circular-button"
+                  onClick={async () => {
+                    setCounter((prevCounter) => {
+                      const newCounter = prevCounter + 1;
+                      localStorage.setItem("counter", newCounter);
+                      return newCounter;
+                    });
+                    // setProduct({
+                    //   price: item?.price,
+                    //   quantity: counter,
+                    //   product: item._id,
+                    // });
+                    const test = {
+                      price: item?.price,
+                      quantity: localStorage.getItem("counter"),
+                      product: item._id,
+                    };
+                    try {
+                      const response = await axios.post(
+                        `http://localhost:5000/cart/${item.products._id}/addtocart`,
+                        { product: test },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
+                      console.log(response.data);
+                      const cartDataNew = cartData?.cart?.map((elem, i) => {
+                        if (elem.products._id === item.products._id) {
+                          elem.quantity += 1;
+                        }
+                        return elem;
+                      });
+                      console.log(cartDataNew);
+                      // setCartData(cartDataNew)
+                      setCartData({ cart: cartDataNew });
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
                   +
                 </button>
               </div>
@@ -119,11 +203,15 @@ const Cart = () => {
         <div className="totalSum">
           <p>Total Price: {calculateTotalPrice()} $</p>
           <p>Total Items: {cartData?.cart?.length}</p>
-          <button className="orderBtn" onClick={()=>{
-          navigate("/Order")
-        }}>Checkout</button>
+          <button
+            className="orderBtn"
+            onClick={() => {
+              navigate("/Order");
+            }}
+          >
+            Checkout
+          </button>
         </div>
-        
       </div>
     </div>
   );

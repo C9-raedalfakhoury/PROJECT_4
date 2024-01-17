@@ -13,14 +13,8 @@ import Swal from "sweetalert2";
 const Home = () => {
   const [tokenExpiration, setTokenExpiration] = useState(0);
 
- 
-  let {
-    filter,
-    token,
-    setToggleHome,
-    setCounter,
-    counter, 
-  } = useContext(ApplicationContext);
+  let { filter, token, setToggleHome, setCounter, counter } =
+    useContext(ApplicationContext);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const navigate = useNavigate();
@@ -96,10 +90,10 @@ const Home = () => {
                 });
               }}
             ></img>
-            <p>{item?.name}</p>
-            <p>{item?.price}</p>
+            <p className="itemName">{item?.name}</p>
+            <p className="itemPrice">{item?.price} $</p>
             <div className="iconPrice">
-              <p>{item?.rate}</p>
+              <p className="itemRate">{item?.rate}</p>
               <BiCartAdd
                 className="addToCart"
                 onClick={async () => {
@@ -144,9 +138,9 @@ const Home = () => {
                           },
                         }
                       );
-                      console.log(response.data);
+                      // console.log(response.data);
                     } catch (error) {
-                      console.log(error);
+                      // console.log(error);
                     }
                   }
                   {

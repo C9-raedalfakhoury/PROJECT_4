@@ -7,8 +7,7 @@
 .productCard {
   text-align: center;
   display: flex;
-  flex-wrap: wrap;
-  background: linear-gradient(to top, #808080, #ffffff);
+  flex-wrap: wrap; 
   gap: 20px;
   justify-content: center;
   align-items: self-start; 
@@ -23,10 +22,10 @@
   cursor: pointer;
 }
 .oneProductCard{
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(171 176 183 / 25%);
+  border-radius: 10%;
 }
 .iconPrice{
   display: flex;
@@ -46,5 +45,16 @@ height: min-content;
 }
 .addToCart:hover{
   color: red;
-  transform: scale(1.2);
+  transform: scale(1.4);
+}
+.itemName{
+  font-size: 16px;
+  font-weight: bold;
+}
+.itemPrice{
+  font-size: 16px;
+  font-weight: bold;
+}
+.itemRate{
+  font-size: 22px; 
 }

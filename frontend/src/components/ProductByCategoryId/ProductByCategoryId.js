@@ -52,10 +52,10 @@ const ProductByCategoryId = () => {
                 });
               }}
             ></img>
-            <p>{item?.name}</p>
-              <p>{item?.price}</p>
+            <p className="itemName">{item?.name}</p>
+              <p className="itemPrice">{item?.price}</p>
             <div className="iconPrice">
-              <p>{item?.rate}</p>
+              <p  className="itemRate">{item?.rate}</p>
               <BiCartAdd
                 className="addToCart"
                 onClick={async () => {

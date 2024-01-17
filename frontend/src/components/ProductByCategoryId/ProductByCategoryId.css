@@ -1,36 +1,35 @@
-.specificCategory{
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    background: linear-gradient(to top, #808080, #ffffff);
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start; 
-    height: 100vw;
+.specificCategory {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
 }
-.oneProductCard{
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    border-radius: 10%;
+.oneProductCard {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(171 176 183 / 25%);
+  border-radius: 10%;
 }
-.iconPrice{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+.iconPrice {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
-.swal2-title{
-    font-size: 18px;
-    font-weight: 500;
-    width: 500px;
+.swal2-title {
+  font-size: 18px;
+  font-weight: 500;
+  width: 500px;
   height: min-content;
-    padding: 0px;
-    margin: 0px;
-  }
-  .div:where(.swal2-container) img:where(.swal2-image){
-    margin: 0px;
-    padding: 0px;
-  }
-  .swal2-confirm swal2-styled{
-    display: none;
-  }
+  padding: 0px;
+  margin: 0px;
+}
+.div:where(.swal2-container) img:where(.swal2-image) {
+  margin: 0px;
+  padding: 0px;
+}
+.swal2-confirm swal2-styled {
+  display: none;
+}

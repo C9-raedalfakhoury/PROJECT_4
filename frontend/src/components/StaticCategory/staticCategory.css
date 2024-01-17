@@ -34,7 +34,7 @@
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  background: linear-gradient(to top, #808080, #ffffff);
+  /* background: linear-gradient(to top, #808080, #ffffff); */
   gap: 20px;
   justify-content: center;
   align-items: flex-start; 
@@ -43,7 +43,8 @@
 .oneProductCard{
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
+  background-color: rgb(171 176 183 / 25%);
+
   border-radius: 10%;
 }
 .iconPrice{
