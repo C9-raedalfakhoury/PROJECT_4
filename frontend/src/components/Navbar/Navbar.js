@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "../Navbar/Navbar.css";
 import { MdOutlinePerson3 } from "react-icons/md";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
@@ -12,15 +12,8 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
-  const {
-    setToggleHome,
-    setFilter, 
-    userInfo,counter,
-    token,
-    cartData,
-    setCartData,
-  } = useContext(ApplicationContext);
-  console.log(cartData);
+  const { setToggleHome, setFilter, userInfo, counter, token, setCartData } =
+    useContext(ApplicationContext);
   return (
     <div className="Navbar">
       <div className="logoText">
@@ -45,6 +38,7 @@ const Navbar = () => {
           type="button"
           value="Category"
         />
+      
         <input
           onClick={() => {
             navigate("/About");
@@ -180,7 +174,7 @@ const Navbar = () => {
               const cart = resultCart.data.products;
               setCartData((previos) => {
                 return { ...previos, cart };
-              });  
+              });
             } catch (error) {
               console.log(error);
             }
@@ -193,3 +187,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+ 

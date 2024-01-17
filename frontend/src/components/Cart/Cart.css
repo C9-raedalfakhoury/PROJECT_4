@@ -24,33 +24,69 @@
   justify-content: space-between;
   padding: 0px 20px;
 }
-.rowOfCart{
+.rowOfCart {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid;
+  padding: 5px 0px;
 }
-.image{
+.image {
   width: 100px;
   height: 100px;
 }
-.quantity{
+.quantity {
   font-size: 20px;
   font-weight: bold;
 }
-.totalPrice{
+.totalPrice {
   font-size: 20px;
   font-weight: bold;
 }
-.price{
+.price {
   font-size: 20px;
   font-weight: bold;
 }
-.iconRabesh{
+.iconRabesh {
   font-size: 40px;
+  color: red;
 }
-.totalSum{
+.totalSum {
+  display: flex;
   position: absolute;
   bottom: 0px;
   left: 50%;
   font-size: 20px;
   font-weight: bold;
+  align-items: center;
+  flex-direction: column;
+}
+.circular-button {
+  display: inline-block;
+  padding: 2px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  outline: none;
+  width: 30px;
+  height: 30px;
+}
+.plusMinus {
+  display: flex;
+  gap: 10px;
+}
+ 
+.orderBtn {
+  width: 150px;
+  height: 32px;
+  background-color: black;
+  color: white;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  padding: 0px 20px;
 }

@@ -12,6 +12,7 @@ const StaticCategory = () => {
       const result = await axios.get("http://localhost:5000/category/all");
       const data = await result.data;
       setCategory(data.result);
+      console.log(data.result);
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +37,7 @@ const StaticCategory = () => {
                 const result = await axios.get(
                   `http://localhost:5000/products/${item._id}/products`
                 );
+                console.log(result.data);
                 setProductByCategory(result?.data?.result);
               } catch (error) {
                 console.log(error?.response?.data?.message);

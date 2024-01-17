@@ -1,12 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "../Cart/Cart.css";
 import { ApplicationContext } from "../../App";
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
-
+import Swal from "sweetalert2";
+import "reactjs-popup/dist/index.css";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
+  const navigate = useNavigate();
+  const [popup, setPopup] = useState(false);
   const { cartData, token, userInfo, setCartData, setCounter } =
     useContext(ApplicationContext);
 
@@ -46,7 +50,7 @@ const Cart = () => {
 
       setCounter((prevCounter) => {
         const newCounter = prevCounter - quantity;
-        sessionStorage.setItem("counter", newCounter);
+        localStorage.setItem("counter", newCounter);
         return newCounter;
       });
 
@@ -70,14 +74,44 @@ const Cart = () => {
           return (
             <div className="rowOfCart" key={item._id}>
               <img className="image" alt="" src={item.products.imageUrl}></img>
-              <p className="quantity">{item.quantity}</p>
+
+              <div className="plusMinus">
+                <button class="circular-button" onClick={() => {}}>
+                  -
+                </button>
+                <p className="quantity">{item.quantity}</p>
+                <button class="circular-button" onClick={() => {}}>
+                  +
+                </button>
+              </div>
+
               <p className="price">{item.products.price} $</p>
               <p className="totalPrice">
                 {item.quantity * item.products.price} $
               </p>
               <MdDeleteForever
                 className="iconRabesh"
-                onClick={() => handleDelete(item._id, item.quantity)}
+                onClick={() => {
+                  Swal.fire({
+                    title: "Are you sure?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      handleDelete(item._id, item.quantity);
+                      Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                      });
+                    }
+                  });
+                }}
               />
             </div>
           );
@@ -85,10 +119,15 @@ const Cart = () => {
         <div className="totalSum">
           <p>Total Price: {calculateTotalPrice()} $</p>
           <p>Total Items: {cartData?.cart?.length}</p>
+          <button className="orderBtn" onClick={()=>{
+          navigate("/Order")
+        }}>Checkout</button>
         </div>
+        
       </div>
     </div>
   );
 };
 
 export default Cart;
+// handleDelete(item._id, item.quantity)

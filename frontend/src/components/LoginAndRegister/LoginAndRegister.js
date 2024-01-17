@@ -9,7 +9,7 @@ import { json, useNavigate } from "react-router-dom";
 const LoginAndRegister = () => {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(true);
-  const { token, setToken, setToggleHome, setUserInfo, userInfo } =
+  const {  setToken, setToggleHome, setUserInfo} =
     useContext(ApplicationContext);
   const [register, setRegister] = useState({});
   const [login, setLogin] = useState({});

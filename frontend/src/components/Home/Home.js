@@ -19,9 +19,7 @@ const Home = () => {
     token,
     setToggleHome,
     setCounter,
-    counter,
-    userInfo,
-    setCartData,
+    counter, 
   } = useContext(ApplicationContext);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
@@ -123,7 +121,7 @@ const Home = () => {
                   } else {
                     setCounter((prevCounter) => {
                       const newCounter = prevCounter + 1;
-                      sessionStorage.setItem("counter", newCounter);
+                      localStorage.setItem("counter", newCounter);
                       return newCounter;
                     });
                     setProduct({

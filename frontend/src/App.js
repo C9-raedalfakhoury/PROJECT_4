@@ -9,7 +9,8 @@ import About from "./components/About/About.js";
 import Contact from "./components/Contact/Contact.js";
 import StaticCategory from "./components/StaticCategory/StaticCategory.js";
 import ProductByCategoryId from "./components/ProductByCategoryId/ProductByCategoryId.js";
-import Cart from "../src/components/Cart/Cart.js";
+import Cart from "../src/components/Cart/Cart.js"; 
+import Order from "./components/MyOrder/Order.js";
 export const ApplicationContext = createContext();
 function App() {
   const [filter, setFilter] = useState({
@@ -21,7 +22,7 @@ function App() {
   const [productByCategory, setProductByCategory] = useState([]);
   const [toggleHome, setToggleHome] = useState(true);
   const [counter, setCounter] = useState(
-    Number(sessionStorage.getItem("counter")) || 0
+    Number(localStorage.getItem("counter")) || 0
   );
 
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -66,6 +67,10 @@ function App() {
           <Route
             path="/ProductByCategoryId"
             element={<ProductByCategoryId />}
+          />
+          <Route
+            path="/Order"
+            element={< Order />}
           />
         </Routes>
       )}

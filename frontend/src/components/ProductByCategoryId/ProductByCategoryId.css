@@ -31,3 +31,6 @@
     margin: 0px;
     padding: 0px;
   }
+  .swal2-confirm swal2-styled{
+    display: none;
+  }
