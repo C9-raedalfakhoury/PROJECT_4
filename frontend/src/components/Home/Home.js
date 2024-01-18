@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 const Home = () => {
   const [tokenExpiration, setTokenExpiration] = useState(0);
 
-  let { filter, token, setToggleHome, setCounter, counter } =
+  let { filter, token, setToggleHome, setCounter, counter, cartId, setCartId } =
     useContext(ApplicationContext);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
@@ -113,6 +113,7 @@ const Home = () => {
                       }
                     });
                   } else {
+                    
                     setCounter((prevCounter) => {
                       const newCounter = prevCounter + 1;
                       localStorage.setItem("counter", newCounter);

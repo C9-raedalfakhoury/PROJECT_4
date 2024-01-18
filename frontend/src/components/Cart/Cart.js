@@ -10,14 +10,24 @@ import "reactjs-popup/dist/index.css";
 import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const navigate = useNavigate();
-  const { cartData, token, userInfo, setCartData, setCounter } =
-    useContext(ApplicationContext);
+  const {
+    cartData,
+    token,
+    userInfo,
+    setCartData,
+    setCounter,
+    cartId,
+    setCartId,
+  } = useContext(ApplicationContext);
 
   const calculateTotalPrice = () => {
     return cartData.cart?.reduce((total, item) => {
       return total + item.quantity * item.products.price;
     }, 0);
   };
+  // !------
+  const [totalPrice, setTotalPrice] = useState(0);
+  // !------
 
   const getCart = async () => {
     try {
@@ -30,6 +40,12 @@ const Cart = () => {
         }
       );
       setCartData({ cart: resultCart.data.products });
+      setCartId(
+        resultCart.data.products.map((item) => {
+          return item._id;
+        })
+      );
+      console.log(cartId);
     } catch (error) {
       console.log(error);
     }
@@ -69,16 +85,18 @@ const Cart = () => {
         <p className="products">Remove</p>
       </div>
       <div className="product">
-        {cartData.cart?.map((item, i) => {
-          console.log(cartData.cart);
+        {cartData.cart?.map((item, i) => { 
           return (
             <div className="rowOfCart" key={item._id}>
               <img className="image" alt="" src={item.products.imageUrl}></img>
 
               <div className="plusMinus">
-                <button 
+                <button
                   class={`circular-button `}
-                  style={{pointerEvents:item.quantity === 1 ? "none":"auto",backgroundColor:item.quantity === 1 ? "gray":"black"}}
+                  style={{
+                    pointerEvents: item.quantity === 1 ? "none" : "auto",
+                    backgroundColor: item.quantity === 1 ? "gray" : "black",
+                  }}
                   onClick={async () => {
                     setCounter((prevCounter) => {
                       const newCounter = prevCounter - 1;
@@ -112,7 +130,7 @@ const Cart = () => {
                         }
                         return elem;
                       });
-                      console.log(cartDataNew); 
+                      console.log(cartDataNew);
                       setCartData({ cart: cartDataNew });
                     } catch (error) {
                       console.log(error);
@@ -205,7 +223,7 @@ const Cart = () => {
           <p>Total Items: {cartData?.cart?.length}</p>
           <button
             className="orderBtn"
-            onClick={() => {
+            onClick={async () => { 
               navigate("/Order");
             }}
           >

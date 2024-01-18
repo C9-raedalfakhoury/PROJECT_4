@@ -1,12 +1,23 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/style-prop-object */
 import React, { useContext } from "react";
 import "../MyOrder/Order.css";
 import { useNavigate } from "react-router-dom";
 import { ApplicationContext } from "../../App";
+import Swal from "sweetalert2";
+
 const Order = () => {
-  const { setToggleHome } = useContext(ApplicationContext);
+  const { setToggleHome, cartData, setCounter,setCartData } =
+    useContext(ApplicationContext);
   const navigate = useNavigate();
+  const calculateTotalPrice = () => {
+    return cartData.cart?.reduce((total, item) => {
+      return total + item.quantity * item.products.price;
+    }, 0);
+  };
+  console.log(cartData.cart);
   return (
     <div id="mainOrder">
       <div className="order">
@@ -273,16 +284,56 @@ const Order = () => {
         <h2>Payment</h2>
         <h6>All transactions are secure and encrypted.</h6>
         <div className="PaymentMethod">Cash on Delivery (COD)</div>
-        <button className="Submit"
+        <button
+          className="Submit"
           onClick={() => {
-            setToggleHome(true)
-            navigate("/Home");
+            setCartData([])
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your order has been submit",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setTimeout(() => {
+              setCounter((prevCounter) => {
+                const newCounter = 0;
+                localStorage.setItem("counter", newCounter);
+                return newCounter;
+              });
+              setToggleHome(true);
+              navigate("/Home");
+            }, 2000);
           }}
         >
           Submit
         </button>
         <hr></hr>
         <p>All rights reserved creative</p>
+      </div>
+      <div className="orderDivDetails">
+        {cartData?.cart?.map((item, i) => { 
+          return (
+            <div className="imgQuantity">
+              <img className="image" alt="" src={item.products.imageUrl}></img>
+              <div className="navBarDetails">
+                <div className="blackNAV">
+                  <p id="paragrapg">Quantity</p>
+                  <p id="paragrapg">Price</p>
+                  <p id="paragrapg">Total Price</p>
+                </div>
+                <div className="details">
+                  <p id="paragrapg">{item.quantity}</p>
+                  <p id="paragrapg">{item.products.price} $</p>
+                  <p id="paragrapg">{item.quantity * item.products.price} $</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        <div className="totalPrices">
+          <h5>Total Price {calculateTotalPrice()}$</h5>
+        </div>
       </div>
     </div>
   );

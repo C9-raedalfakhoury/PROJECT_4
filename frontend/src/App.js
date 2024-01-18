@@ -9,7 +9,7 @@ import About from "./components/About/About.js";
 import Contact from "./components/Contact/Contact.js";
 import StaticCategory from "./components/StaticCategory/StaticCategory.js";
 import ProductByCategoryId from "./components/ProductByCategoryId/ProductByCategoryId.js";
-import Cart from "../src/components/Cart/Cart.js"; 
+import Cart from "../src/components/Cart/Cart.js";
 import Order from "./components/MyOrder/Order.js";
 export const ApplicationContext = createContext();
 function App() {
@@ -24,14 +24,14 @@ function App() {
   const [counter, setCounter] = useState(
     Number(localStorage.getItem("counter")) || 0
   );
-
+  const [cartId, setCartId] = useState();
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   // console.log(token);
   const storedUserInfo = localStorage.getItem("userInfo");
   const initialUserInfo = storedUserInfo ? JSON.parse(storedUserInfo) : {};
   const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [cartData, setCartData] = useState([]);
-  
+
   return (
     <ApplicationContext.Provider
       value={{
@@ -51,6 +51,8 @@ function App() {
         setUserInfo,
         cartData,
         setCartData,
+        cartId,
+        setCartId,
       }}
     >
       <Navbar />
@@ -68,10 +70,7 @@ function App() {
             path="/ProductByCategoryId"
             element={<ProductByCategoryId />}
           />
-          <Route
-            path="/Order"
-            element={< Order />}
-          />
+          <Route path="/Order" element={<Order />} />
         </Routes>
       )}
     </ApplicationContext.Provider>
