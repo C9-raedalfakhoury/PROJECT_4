@@ -7,13 +7,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { ApplicationContext } from "../../App";
 import { BiCartAdd } from "react-icons/bi";
 import "../Home/Home.css";
+  
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 const Home = () => {
   const [tokenExpiration, setTokenExpiration] = useState(0);
-
-  let { filter, token, setToggleHome, setCounter, counter, cartId, setCartId } =
+ 
+  
+  let { filter, token, setToggleHome, setCounter, counter } =
     useContext(ApplicationContext);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
@@ -56,9 +58,11 @@ const Home = () => {
   }, [filter?.productName]);
   return (
     <div className="productCard">
+      
       {products?.map((item, i) => {
         return (
           <div className="oneProductCard" key={i}>
+           
             <img
               className="imgCard"
               alt=""
@@ -113,7 +117,6 @@ const Home = () => {
                       }
                     });
                   } else {
-                    
                     setCounter((prevCounter) => {
                       const newCounter = prevCounter + 1;
                       localStorage.setItem("counter", newCounter);

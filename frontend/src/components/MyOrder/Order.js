@@ -7,9 +7,10 @@ import "../MyOrder/Order.css";
 import { useNavigate } from "react-router-dom";
 import { ApplicationContext } from "../../App";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Order = () => {
-  const { setToggleHome, cartData, setCounter,setCartData } =
+  const { setToggleHome, cartData, setCounter, setCartData, userInfo } =
     useContext(ApplicationContext);
   const navigate = useNavigate();
   const calculateTotalPrice = () => {
@@ -286,24 +287,32 @@ const Order = () => {
         <div className="PaymentMethod">Cash on Delivery (COD)</div>
         <button
           className="Submit"
-          onClick={() => {
-            setCartData([])
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Your order has been submit",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setTimeout(() => {
-              setCounter((prevCounter) => {
-                const newCounter = 0;
-                localStorage.setItem("counter", newCounter);
-                return newCounter;
+          onClick={async () => {
+            // http://localhost:5000/cart/65a5846fe80742099c31c75a/dropCart
+            try {
+              const result = await axios.delete(
+                `http://localhost:5000/cart/${userInfo.result._id}/dropCart`
+              );
+              console.log(result.data);
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your order has been submit",
+                showConfirmButton: false,
+                timer: 1500,
               });
-              setToggleHome(true);
-              navigate("/Home");
-            }, 2000);
+              setTimeout(() => {
+                setCounter((prevCounter) => {
+                  const newCounter = 0;
+                  localStorage.setItem("counter", newCounter);
+                  return newCounter;
+                });
+                setToggleHome(true);
+                navigate("/Home");
+              }, 2000);
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           Submit
@@ -312,7 +321,7 @@ const Order = () => {
         <p>All rights reserved creative</p>
       </div>
       <div className="orderDivDetails">
-        {cartData?.cart?.map((item, i) => { 
+        {cartData?.cart?.map((item, i) => {
           return (
             <div className="imgQuantity">
               <img className="image" alt="" src={item.products.imageUrl}></img>

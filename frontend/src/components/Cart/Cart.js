@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
-import "../Cart/Cart.css";
+import "./Cart.css";
 import { ApplicationContext } from "../../App";
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";

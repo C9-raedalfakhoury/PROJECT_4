@@ -12,7 +12,30 @@
   flex-direction: column;
   background-color: rgb(171 176 183 / 25%);
   border-radius: 10%;
+  transition: ease 1s;
 }
+.oneProductCard:after,
+.oneProductCard:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: 0px solid white;
+  transition:  ease 1s;
+}
+
+.oneProductCard:after {
+  border-top: 5px solid orange;
+  border-left: 0px solid white;
+}
+.oneProductCard:hover {
+  border-radius: 10%;
+}
+.oneProductCard:hover:before,
+.oneProductCard:hover:after {
+  width: 100%;
+  height: 100%;
+}
+
 .iconPrice {
   display: flex;
   justify-content: center;
@@ -29,7 +52,6 @@
 .div:where(.swal2-container) img:where(.swal2-image) {
   margin: 0px;
   padding: 0px;
-  
 }
 .swal2-confirm swal2-styled {
   display: none;
@@ -51,12 +73,12 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   background-color: #7066e0;
   color: #fff;
   font-size: 1em;
-  padding: 20px;
-  width: 80px;
+  /* padding: 20px; */
+  /* width: 80px; */
   font-size: 20px;
   font-weight: bold;
 }
-.div:where(.swal2-container) img:where(.swal2-image){
+.div:where(.swal2-container) img:where(.swal2-image) {
   margin: 0px;
   padding: 0px;
   border-radius: 50px;
@@ -76,7 +98,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   font-family: inherit;
   font-size: 1rem;
 }
- 
+
 .swal2-image {
   border-radius: 50%;
   padding: 0px;

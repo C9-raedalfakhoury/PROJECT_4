@@ -1,16 +1,16 @@
-*{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-    font-family: sans-serif;
-} 
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+}
 .productCard {
   text-align: center;
-  display: flex;
-  flex-wrap: wrap; 
-  gap: 20px;
   justify-content: center;
-  align-items: self-start; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: self-start;
 }
 .imgCard {
   grid-template-columns: auto auto;
@@ -21,13 +21,35 @@
   background-color: transparent;
   cursor: pointer;
 }
-.oneProductCard{
+.oneProductCard {
   display: flex;
   flex-direction: column;
   background-color: rgb(171 176 183 / 25%);
   border-radius: 10%;
+  transition: ease 1s;
 }
-.iconPrice{
+.oneProductCard:after,
+.oneProductCard:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: 0px solid white;
+  transition: ease 1s;
+}
+.oneProductCard:after {
+  border-top: 5px solid orange;
+  border-left: 0px solid white;
+}
+.oneProductCard:hover {
+  border-radius: 10%;
+}
+.oneProductCard:hover:before,
+.oneProductCard:hover:after {
+  width: 100%;
+  height: 100%;
+}
+
+.iconPrice {
   display: flex;
   justify-content: space-around;
 }
@@ -48,12 +70,12 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   background-color: #7066e0;
   color: #fff;
   font-size: 1em;
-  padding: 20px;
-  width: 80px;
+  /* padding: 20px; */
+  /* width: 80px; */
   font-size: 20px;
   font-weight: bold;
 }
-.div:where(.swal2-container) img:where(.swal2-image){
+.div:where(.swal2-container) img:where(.swal2-image) {
   margin: 0px;
   padding: 0px;
   border-radius: 50px;
@@ -75,23 +97,23 @@ div:where(.swal2-container) div:where(.swal2-popup) {
 }
 .swal2-image {
   border-radius: 50%;
-  padding: 0px; 
+  padding: 0px;
   box-shadow: 2px 2px 50px gray;
   margin-top: 5px;
 }
-.addToCart:hover{
+.addToCart:hover {
   color: red;
   transform: scale(1.4);
 }
 
-.itemName{
+.itemName {
   font-size: 16px;
   font-weight: bold;
 }
-.itemPrice{
+.itemPrice {
   font-size: 16px;
   font-weight: bold;
 }
-.itemRate{
-  font-size: 22px; 
+.itemRate {
+  font-size: 22px;
 }

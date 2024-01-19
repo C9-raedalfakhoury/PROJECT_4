@@ -17,9 +17,15 @@ const Navbar = () => {
   return (
     <div className="Navbar">
       <div className="logoText">
-        <h2 data-text="Creative" className="creative">
+        {/* <h2 data-text="Creative" className="creative">
           Creative
-        </h2>
+        </h2> */}
+        <h3 id="h1">
+          <span className="background"></span>
+          <span className="invert"></span>
+          <span className="text">Smart Shopper</span>
+          <span className="invert"></span>
+        </h3>
       </div>
       <div className="link">
         <input
@@ -38,7 +44,7 @@ const Navbar = () => {
           type="button"
           value="Category"
         />
-      
+
         <input
           onClick={() => {
             navigate("/About");
@@ -254,4 +260,4 @@ const getScore = (req, res) => {
       "name": "Morris Park Bake Shop",
       "restaurant_id": "30075445"
     },
-*/  
+*/
