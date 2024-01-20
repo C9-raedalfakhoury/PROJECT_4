@@ -5,14 +5,14 @@ import "../LoginAndRegister/LoginAndRegister.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ApplicationContext } from "../../App";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const LoginAndRegister = () => {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(true);
-  const {  setToken, setToggleHome, setUserInfo} =
+  const { setToken, setToggleHome, setUserInfo, login, setLogin } =
     useContext(ApplicationContext);
   const [register, setRegister] = useState({});
-  const [login, setLogin] = useState({});
+
   return (
     <div className="LoginAndRegister">
       <div className="title">
@@ -74,7 +74,6 @@ const LoginAndRegister = () => {
                   "http://localhost:5000/users/login",
                   login
                 );
-                console.log(result);
                 setToken(result.data.token);
                 localStorage.setItem("token", result.data.token);
                 setUserInfo(result.data);
@@ -87,8 +86,12 @@ const LoginAndRegister = () => {
                   timer: 1000,
                 });
                 setTimeout(() => {
-                  navigate("/Home");
-                  setToggleHome(true);
+                  if (login.email === "raed@gmail.com") {
+                    navigate("/Admin");
+                  } else {
+                    navigate("/Home");
+                    setToggleHome(true);
+                  }
                 }, 1500);
               } catch (error) {
                 Swal.fire({
@@ -118,7 +121,7 @@ const LoginAndRegister = () => {
                 });
               }}
               className="input"
-              placeholder="First Name"
+              placeholder="User Name"
             ></input>
 
             <input

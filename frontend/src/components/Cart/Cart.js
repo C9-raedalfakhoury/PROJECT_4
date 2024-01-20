@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./Cart.css";
 import { ApplicationContext } from "../../App";
 import { MdDeleteForever } from "react-icons/md";
@@ -25,9 +25,7 @@ const Cart = () => {
       return total + item.quantity * item.products.price;
     }, 0);
   };
-  // !------
-  const [totalPrice, setTotalPrice] = useState(0);
-  // !------
+   
 
   const getCart = async () => {
     try {

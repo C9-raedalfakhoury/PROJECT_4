@@ -10,19 +10,19 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 const Order = () => {
-  const { setToggleHome, cartData, setCounter, setCartData, userInfo } =
+  const { setToggleHome, cartData, setCounter,  userInfo } =
     useContext(ApplicationContext);
   const navigate = useNavigate();
   const calculateTotalPrice = () => {
     return cartData.cart?.reduce((total, item) => {
       return total + item.quantity * item.products.price;
     }, 0);
-  };
-  console.log(cartData.cart);
+  }; 
   return (
     <div id="mainOrder">
       <div className="order">
-        <input placeholder="Phone Number" id="email"></input>
+        {/* <input placeholder={userInfo?.result?.role}  id="email"></input> */}
+        <h3>{userInfo?.result?.email || ""}</h3>
         <div className="checkBox">
           <input type="checkbox" id="checkbox" name="marketing_opt_in"></input>
           <p className="information">Email me with news and offers</p>
@@ -274,10 +274,10 @@ const Order = () => {
           <option value="ZW">Zimbabwe</option>
         </select>
         <div className="firstLastName">
-          <input id="firstName" placeholder="first name"></input>
-          <input id="firstName" placeholder="last name"></input>
+          <input id="firstName" placeholder="Phone Number"></input>
+          <input id="firstName" placeholder="Addres"></input>
         </div>
-        <input id="address" placeholder="addres"></input>
+        {/* <input id="address" placeholder="addres"></input> */}
         <div className="postalCity">
           <input id="city" placeholder="city"></input>
           <input id="postal" placeholder="postal code"></input>
@@ -292,8 +292,7 @@ const Order = () => {
             try {
               const result = await axios.delete(
                 `http://localhost:5000/cart/${userInfo.result._id}/dropCart`
-              );
-              console.log(result.data);
+              ); 
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -318,7 +317,7 @@ const Order = () => {
           Submit
         </button>
         <hr></hr>
-        <p>All rights reserved creative</p>
+        <p>All rights reserved Smart Shopper</p>
       </div>
       <div className="orderDivDetails">
         {cartData?.cart?.map((item, i) => {

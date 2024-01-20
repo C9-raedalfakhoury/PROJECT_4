@@ -46,7 +46,7 @@ const Contact = () => {
           <div className="footer-section">
             <h4>About Us</h4>
             <p>
-              Welcome to creative, your one-stop
+              Welcome to Smart Shopper, your one-stop
               destination for a seamless and delightful online shopping
               experience! We pride ourselves on offering a diverse and curated
               selection of high-quality products, spanning across various
@@ -55,7 +55,7 @@ const Contact = () => {
           </div>
           <div className="footer-section">
             <h4>Contact Us</h4>
-            <p>Email: creative@gmail.com</p>
+            <p>Email: Smart-Shopper@gmail.com</p>
             <p>Phone: 078-057-0194</p>
           </div>
           <div className="footer-section">

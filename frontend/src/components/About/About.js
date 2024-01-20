@@ -19,7 +19,7 @@ const About = () => {
         <p>About</p>
       </div>
       <div className="content">
-        <h1 style={{textAlign:"center"}}>Welcome To Creative Store</h1>
+        <h1 style={{textAlign:"center"}}>Welcome To Smart Shopper Store</h1>
         <p style={{textAlign:"center"}} className="paragraph">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor incididunt ut labore et dolore gna aliqua. Ut enim ad
@@ -31,11 +31,11 @@ const About = () => {
       <div className="leftAndRight">
         <div className="left">
           <iframe
-            src="https://www.youtube.com/embed/BVMsRltq2yU
-      "
-            title="E-Commerce Video"
-            width="400"
-            height="400"
+            src="https://www.youtube.com/embed/BVMsRltq2yU"
+            aria-controls="none"
+            title=" "
+            width="800"
+            height="800"
           ></iframe>
         </div>
         <div className="right">

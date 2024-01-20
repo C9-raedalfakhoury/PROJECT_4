@@ -9,7 +9,7 @@ box-sizing: border-box;
     height: 95px;
     align-items: center;
     background: linear-gradient(to bottom, #808080, #ffffff);
-    padding: 0px 30px;
+    padding: 0px 30px; 
 }
 input{
     background-color: transparent;
@@ -45,7 +45,15 @@ input:hover{
     gap: 35px;
     transition: transform 0.3s ease-in-out;
 }
- 
+ .logout{
+    font-size: 30px;
+    font-weight: bold;
+    transition: transform 0.3s ease-in-out;
+ }
+.logout:hover{
+    color: red;
+    transform: scale(1.5);
+}
 .personIcon:hover{
     color: red;
     transform: scale(1.5);
@@ -54,36 +62,7 @@ input:hover{
     color: red;
     transform: scale(1.5);
 }
-.creative{
-font-family: sans-serif;
-position: relative;
-color: #FFFFFF;
--webkit-text-stroke: 0.4vw #383d52;
-text-transform: uppercase;
-}
-.creative::before{
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    color: #01fe87;
-    -webkit-text-stroke: 0vw #383d52;
-    border-right: 2px solid #01fe87;
-    overflow: hidden;
-    animation: animate 6s linear infinite;
-}
-@keyframes animate 
-{
-    0%,10%,100%{
-      width: 0;
-    }
-    70%,90%
-    {
-        width: 100%;
-    }
-}
+ 
 .searchBox {
     display: flex;
     max-width: 230px;

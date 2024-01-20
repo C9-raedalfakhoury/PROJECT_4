@@ -1,0 +1,81 @@
+.mainAdmin {
+  display: flex;
+  flex-direction: column;
+}
+.adminNavBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+  background: linear-gradient(to bottom, #808080, #ffffff);
+  height: 95px;
+}
+.addProductDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  margin-top: 100px;
+}
+.allProduct{
+    display: flex;
+    flex-direction: column;
+}
+.oneProductCardAdmin {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
+    background: linear-gradient(to right, #808080, #ffffff);
+}
+#imgAdmin{
+    width: 100px;
+    height: 100px;
+}
+.deleteUser {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background: linear-gradient(to right, #808080, #ffffff);
+  height: 100px;
+  align-items: center;
+  margin: 10px 0px;
+  padding: 0px 10px;
+}
+.input {
+    border-bottom: 1px solid #757587;
+    outline: none;
+    width: 300px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    color: black;
+    font-size: 20px;
+  }
+  .Btn{
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 20px;
+    padding: 0.6em 1.5em;
+    width: 200px;
+  }
+  .itemNameAdmin{
+    font-size: 22px;
+  }
+  #navcategory{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    padding: 0px 10px;
+  }
+  .edit{
+    display: flex;
+    flex-direction: column;
+  }

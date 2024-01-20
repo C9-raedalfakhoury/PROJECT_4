@@ -7,19 +7,26 @@ import { MdOutlinePerson3 } from "react-icons/md";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { ApplicationContext } from "../../App";
+import Swal from "sweetalert2";
+import { BiLogOut } from "react-icons/bi";
 import axios from "axios";
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
-  const { setToggleHome, setFilter, userInfo, counter, token, setCartData } =
-    useContext(ApplicationContext);
+  const {
+    setToggleHome,
+    setFilter,
+    userInfo,
+    counter,
+    token,
+    setToken,
+    setCartData,
+    setCounter,
+  } = useContext(ApplicationContext);
   return (
     <div className="Navbar">
       <div className="logoText">
-        {/* <h2 data-text="Creative" className="creative">
-          Creative
-        </h2> */}
         <h3 id="h1">
           <span className="background"></span>
           <span className="invert"></span>
@@ -71,7 +78,7 @@ const Navbar = () => {
             }}
             class="searchInput"
             type="text"
-            placeholder="Search Product"
+            placeholder="Filter By Title"
           ></input>
           <button
             onClick={() => {
@@ -156,13 +163,42 @@ const Navbar = () => {
         </div>
 
         <MdOutlinePerson3
+          title="signIn"
           onClick={() => {
             navigate("/Login");
             setToggleHome(false);
           }}
           className="personIcon"
         />
+        <BiLogOut
+          className="logout"
+          title="logout"
+          onClick={() => {
+            Swal.fire({
+              title: "Are you sure?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "logout",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                setCounter(() => {
+                  const newCounter = 0;
+                  localStorage.setItem("counter", newCounter);
+                  return newCounter;
+                });
+                setToken("");
+
+                localStorage.removeItem("token");
+                localStorage.removeItem("userInfo");
+                localStorage.removeItem("counter");
+              }
+            });
+          }}
+        />
         <HiOutlineShoppingCart
+          title="your cart"
           className="cartIcon"
           onClick={async () => {
             setToggleHome(false);
@@ -193,71 +229,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-/*
-const getScore = (req, res) => {
-  restarantsModel
-    .find({ grades: { $elemMatch: { score: { $gte: 90 } } } })
-
-    .then((result) => {
-      res.status(200).json({
-        result,
-      });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-};
-============
-{
-      "address": {
-        "building": "1007",
-        "coord": [
-          -73.856077,
-          40.848447
-        ],
-        "street": "Morris Park Ave",
-        "zipcode": "10462"
-      },
-      "borough": "Bronx",
-      "cuisine": "Bakery",
-      "grades": [
-        {
-          "date": {
-            "$date": 1393804800000
-          },
-          "grade": "A",
-          "score": 2
-        },
-        {
-          "date": {
-            "$date": 1378857600000
-          },
-          "grade": "A",
-          "score": 6
-        },
-        {
-          "date": {
-            "$date": 1358985600000
-          },
-          "grade": "A",
-          "score": 10
-        },
-        {
-          "date": {
-            "$date": 1322006400000
-          },
-          "grade": "A",
-          "score": 9
-        },
-        {
-          "date": {
-            "$date": 1299715200000
-          },
-          "grade": "B",
-          "score": 14
-        }
-      ],
-      "name": "Morris Park Bake Shop",
-      "restaurant_id": "30075445"
-    },
-*/
