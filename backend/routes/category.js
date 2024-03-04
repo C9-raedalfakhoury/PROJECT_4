@@ -6,8 +6,8 @@ const authorization = require("../middleware/authorization");
 
 categoryRouter.delete(
   "/category/:id/delete",
-  authentication,
-  authorization("Manage_products"),
+  // authentication,
+  // authorization("Manage_products"),
   deleteCategoryById
 );
 categoryRouter.get(

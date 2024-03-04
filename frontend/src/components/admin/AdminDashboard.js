@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "../admin/AdminDashBoard.css";
@@ -7,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 const AdminDashboard = () => {
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
   const navigate = useNavigate();
   const [addProduct, setAddProduct] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState(false);
@@ -19,12 +22,12 @@ const AdminDashboard = () => {
   const [updateDetail, setUpdateDetail] = useState({});
   const [allProduct, setAllProduct] = useState([]);
   const [allCategory, setAllCategory] = useState([]);
-  const [ toggleEdit,setToggleEdit] = useState(false)
+  const [toggleEdit, setToggleEdit] = useState(false);
   const [allUser, setAllUser] = useState([]);
   console.log(productDetail);
   const getAllProduct = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/products`);
+      const result = await axios.get(`https://smart-shopper-19vo.onrender.com/products`);
       const data = await result.data;
       console.log(data.products);
       setAllProduct(data.products);
@@ -39,7 +42,7 @@ const AdminDashboard = () => {
   const handlUpdate = async (itemId) => {
     try {
       const result = await axios.put(
-        `http://localhost:5000/products/${itemId}/update`,
+        `https://smart-shopper-19vo.onrender.com/products/${itemId}/update`,
         updateDetail
       );
       console.log(result.data);
@@ -52,7 +55,7 @@ const AdminDashboard = () => {
   const handleDelete = async (itemId) => {
     try {
       const result = await axios.delete(
-        `http://localhost:5000/admin/${itemId}/products/delete`
+        `https://smart-shopper-19vo.onrender.com/admin/${itemId}/products/delete`
       );
       console.log(result.data);
 
@@ -64,7 +67,7 @@ const AdminDashboard = () => {
 
   const getAllCategory = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/category/all");
+      const result = await axios.get("https://smart-shopper-19vo.onrender.com/category/all");
       const data = await result.data;
       setAllCategory(data.result);
       console.log(data.result);
@@ -74,7 +77,7 @@ const AdminDashboard = () => {
   };
   const getAllUser = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/users/");
+      const result = await axios.get("https://smart-shopper-19vo.onrender.com/users/");
       const data = await result.data;
       setAllUser(data.user);
       console.log(data.result);
@@ -82,10 +85,26 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "Smart_Shopper");
+    data.append("cloud_name", "dv4vcdrz3");
+    fetch("  https://api.cloudinary.com/v1_1/dv4vcdrz3/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleDeleteCategory = async (itemId) => {
     try {
       const result = await axios.delete(
-        `http://localhost:5000/category/${itemId}/delete`
+        `https://smart-shopper-19vo.onrender.com/category/${itemId}/delete`
       );
       console.log(result.data);
 
@@ -97,7 +116,7 @@ const AdminDashboard = () => {
   const handleDeleteUser = async (itemId) => {
     try {
       const result = await axios.delete(
-        `http://localhost:5000/admin/${itemId}/delete`
+        `https://smart-shopper-19vo.onrender.com/admin/${itemId}/delete`
       );
 
       getAllUser();
@@ -119,7 +138,7 @@ const AdminDashboard = () => {
           value="Add Product"
           onClick={() => {
             setAddProduct(!addProduct);
-            setUpdateProduct(false)
+            setUpdateProduct(false);
             setDeleteProduct(false);
             setAddCategory(false);
             setDeleteCategory(false);
@@ -146,7 +165,7 @@ const AdminDashboard = () => {
             setAddCategory(false);
             setDeleteCategory(false);
             setDeleteUser(false);
-            setUpdateProduct(false)
+            setUpdateProduct(false);
           }}
           type="button"
           value="Delete Product"
@@ -158,7 +177,7 @@ const AdminDashboard = () => {
             setAddProduct(false);
             setDeleteCategory(false);
             setDeleteUser(false);
-            setUpdateProduct(false)
+            setUpdateProduct(false);
           }}
           type="button"
           value="Add Category"
@@ -172,7 +191,7 @@ const AdminDashboard = () => {
             setDeleteProduct(false);
             setAddProduct(false);
             setDeleteUser(false);
-            setUpdateProduct(false)
+            setUpdateProduct(false);
           }}
         ></input>
         <input
@@ -184,7 +203,7 @@ const AdminDashboard = () => {
             setAddCategory(false);
             setDeleteProduct(false);
             setAddProduct(false);
-            setUpdateProduct(false)
+            setUpdateProduct(false);
           }}
         ></input>
       </div>
@@ -239,6 +258,7 @@ const AdminDashboard = () => {
             className="input"
             placeholder="price"
           ></input>
+
           <input
             onChange={(e) => {
               setProductDetail((prev) => {
@@ -251,6 +271,13 @@ const AdminDashboard = () => {
             className="input"
             placeholder="imageUrl"
           ></input>
+          <div>
+            <input
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+            ></input>
+            <button onClick={uploadImage()}>Upload</button>
+          </div>
           <input
             onChange={(e) => {
               setProductDetail((prev) => {
@@ -268,7 +295,7 @@ const AdminDashboard = () => {
             onClick={async (e) => {
               try {
                 const result = await axios.post(
-                  "http://localhost:5000/products/addProduct",
+                  "https://smart-shopper-19vo.onrender.com/products/addProduct",
                   productDetail
                 );
                 console.log(result);
@@ -335,11 +362,12 @@ const AdminDashboard = () => {
             return (
               <div className="oneProductCardAdmin" key={i}>
                 <img id="imgAdmin" alt="" src={item?.imageUrl}></img>
-                <div className="edit" >
+                <div className="edit">
                   <p className="itemNameAdmin">{item?.name}</p>
-                  <input  style={{
-                    display: toggleEdit ? "block" : "none",
-                  }}
+                  <input
+                    style={{
+                      display: toggleEdit ? "block" : "none",
+                    }}
                     placeholder="EditName"
                     onChange={(e) => {
                       setUpdateDetail((prev) => {
@@ -354,9 +382,10 @@ const AdminDashboard = () => {
                 <div className="edit">
                   <p className="itemNameAdmin">{item?.price} $</p>
 
-                  <input style={{
-                    display: toggleEdit ? "block" : "none",
-                  }}
+                  <input
+                    style={{
+                      display: toggleEdit ? "block" : "none",
+                    }}
                     placeholder="EditPrice"
                     onChange={(e) => {
                       setUpdateDetail((prev) => {
@@ -367,16 +396,14 @@ const AdminDashboard = () => {
                       });
                     }}
                   ></input>
-
                 </div>
                 <div className="iconPrice">
                   <MdEdit
                     className="iconRabesh"
-                    onClick={()=>{
-                      setToggleEdit(!toggleEdit)
+                    onClick={() => {
+                      setToggleEdit(!toggleEdit);
                     }}
                     onDoubleClick={() => {
-                    
                       Swal.fire({
                         title: "Are you sure?",
                         icon: "warning",
@@ -436,7 +463,7 @@ const AdminDashboard = () => {
             onClick={async () => {
               try {
                 const result = await axios.post(
-                  "http://localhost:5000/category",
+                  "https://smart-shopper-19vo.onrender.com/category",
                   categoryDetail
                 );
                 Swal.fire({

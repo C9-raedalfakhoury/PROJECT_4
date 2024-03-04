@@ -14,16 +14,11 @@ const register = async (req, res) => {
       // admin Role = "65991dd369a49cd5cbda7ea2"
     });
     const savedUser = await users.save();
-    // const cart = new cartSchema({
-    //   user: savedUser._id,
-    //   products: [],
-    // });
-    // const savedCart = await cart.save();
+
     res.status(201).json({
       success: true,
       message: "Account Created Successfully",
       user: savedUser,
-      cart: savedCart,
     });
   } catch (error) {
     if (error.code === 11000) {
@@ -135,5 +130,22 @@ const editUserInfo = async (req, res) => {
     });
   }
 };
-
-module.exports = { register, login, editUserInfo };
+const getAllUser = async (req, res) => {
+  try {
+    const result = await userSchema.find()
+     const newResult= result.filter((item,i)=>{
+      return item.role == "6599365ae4061d69406d4898"
+    }) ;
+    res.status(200).json({
+      success: true, 
+      user: newResult,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: error,
+    });
+  }
+};
+module.exports = { register, login, editUserInfo ,getAllUser};

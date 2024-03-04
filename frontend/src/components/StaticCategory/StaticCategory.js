@@ -9,7 +9,7 @@ const StaticCategory = () => {
    const [category, setCategory] = useState([]);
   const getAllCategory = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/category/all");
+      const result = await axios.get("https://smart-shopper-19vo.onrender.com/category/all");
       const data = await result.data;
       setCategory(data.result);
       console.log(data.result);
@@ -35,7 +35,7 @@ const StaticCategory = () => {
                 navigate("/ProductByCategoryId");
                 setToggleHome(false);
                 const result = await axios.get(
-                  `http://localhost:5000/products/${item._id}/products`
+                  `https://smart-shopper-19vo.onrender.com/products/${item._id}/products`
                 );
                 console.log(result.data);
                 setProductByCategory(result?.data?.result);

@@ -288,10 +288,10 @@ const Order = () => {
         <button
           className="Submit"
           onClick={async () => {
-            // http://localhost:5000/cart/65a5846fe80742099c31c75a/dropCart
+            // https://smart-shopper-19vo.onrender.com/cart/65a5846fe80742099c31c75a/dropCart
             try {
               const result = await axios.delete(
-                `http://localhost:5000/cart/${userInfo.result._id}/dropCart`
+                `https://smart-shopper-19vo.onrender.com/cart/${userInfo.result._id}/dropCart`
               ); 
               Swal.fire({
                 position: "center",

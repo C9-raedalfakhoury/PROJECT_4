@@ -9,8 +9,7 @@ const getCart = async (req, res) => {
       message: "All Cart",
       products: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error) { 
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -30,8 +29,7 @@ const getCartByUserId = async (req, res) => {
       message: "Cart By User Id",
       products: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error) { 
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -59,7 +57,7 @@ const deleteProductBy = (req, res) => {
 };
 
 const addToCart = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   /*
   token: {
     id: '659bd213464d64fab573565c',
@@ -71,7 +69,9 @@ const addToCart = async (req, res) => {
 
   // product id from params
   const { id } = req.params;
-  
+  // const { status } = req.params;
+  // console.log("id", id);
+  // console.log("status", status);
   /*
   {
     "product": {
@@ -82,6 +82,7 @@ const addToCart = async (req, res) => {
 }
   */
   // const { product } = req.body;
+  // { quantity: status == "yes" ? 1 : -1 }
   const userId = req.token.id;
   const filter = { user: userId, products: id };
   const update = { $inc: { quantity: 1 } };
@@ -90,9 +91,7 @@ const addToCart = async (req, res) => {
 
     const editCart = await cartSchema.findOneAndUpdate(filter, update, {
       new: true,
-    });
-
-    console.log("editCart", editCart);
+    }); 
     if (editCart) {
       return res.status(201).json({
         success: true,
@@ -105,7 +104,6 @@ const addToCart = async (req, res) => {
         products: id,
       });
       const cart = await newcart.save();
-      console.log(cart);
       res.status(201).json({
         success: true,
         message: `add product to cart successfully`,
@@ -120,8 +118,73 @@ const addToCart = async (req, res) => {
     });
   }
 };
+const decreasefromCart = async (req, res) => {
+  // console.log(req);
 
-module.exports = { getCart, addToCart, deleteProductBy, getCartByUserId };
+  const { id } = req.params;
+
+  const userId = req.token.id;
+  const filter = { user: userId, products: id };
+  const update = { $inc: { quantity: -1 } };
+  try {
+    const editCart = await cartSchema.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+
+    if (editCart) {
+      return res.status(201).json({
+        success: true,
+        message: `deacrese product from cart successfully`,
+        result: editCart,
+      });
+    } else {
+      const newcart = new cartSchema({
+        user: userId,
+        products: id,
+      });
+      const cart = await newcart.save();
+      res.status(201).json({
+        success: true,
+        message: `deacrese product from cart successfully`,
+        result: cart,
+      });
+    }
+  } catch (error) { 
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: JSON.stringify(error),
+    });
+  }
+};
+const deleteAllCartByUserId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await cartSchema.deleteMany(
+      { user: id },
+      { new: true }
+    );
+    res.status(201).json({
+      success: true,
+      message: `the cart is dropped successfully`,
+      result: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      err: JSON.stringify(error),
+    });
+  }
+};
+module.exports = {
+  getCart,
+  addToCart,
+  decreasefromCart,
+  deleteProductBy,
+  getCartByUserId,
+  deleteAllCartByUserId
+};
 
 //  add product /
 

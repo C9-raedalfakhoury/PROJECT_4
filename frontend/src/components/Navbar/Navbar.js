@@ -205,7 +205,7 @@ const Navbar = () => {
             navigate("/Cart");
             try {
               const resultCart = await axios.get(
-                `http://localhost:5000/cart/${userInfo.result._id}`,
+                `https://smart-shopper-19vo.onrender.com/cart/${userInfo.result._id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`,

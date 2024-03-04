@@ -92,7 +92,7 @@ const ProductByCategoryId = () => {
                     };
                     try {
                       const response = await axios.post(
-                        `http://localhost:5000/cart/${item._id}/addtocart`,
+                        `https://smart-shopper-19vo.onrender.com/cart/${item._id}/addtocart`,
                         { product: test },
                         {
                           headers: {

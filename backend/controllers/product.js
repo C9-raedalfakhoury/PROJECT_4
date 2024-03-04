@@ -2,8 +2,7 @@ const productSchema = require("../models/product");
 const reviewSchema = require("../models/review");
 const categorySchema = require("../models/categories");
 const addProduct = (req, res) => {
-  const { name, rate, description, price, imageUrl, category } =
-    req.body;
+  const { name, rate, description, price, imageUrl, category } = req.body;
   const products = new productSchema({
     name,
     rate,
@@ -30,17 +29,27 @@ const addProduct = (req, res) => {
     });
 };
 const getAllProduct = (req, res) => {
-  const { filter } = req.query;
+  const { filter, minPrice, maxPrice } = req.query;
 
   let query = {};
   if (filter) {
-    query = { name: { $regex: filter, $options: "i" } };
+    query.name = { $regex: filter, $options: "i" };
   }
+
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) {
+      query.price.$gte = parseFloat(minPrice);
+    }
+    if (maxPrice) {
+      query.price.$lte = parseFloat(maxPrice);
+    }
+  }
+
   productSchema
     .find(query)
     .populate("category", "name")
-    .then((result) => {
-      console.log(filter, result);
+    .then((result) => { 
       res.status(200).json({
         success: true,
         message: "All the products",
@@ -75,21 +84,16 @@ const updateProductById = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      name,
-      description,
+      name, 
       price,
-      quantity,
-      imageUrl,
-      category,
-      createdBy,
     } = req.body;
     const result = await productSchema
       .findOneAndUpdate(
         { _id: id },
-        { name, description, price, quantity, imageUrl, category, createdBy },
+        { name,  price},
         { new: true }
       )
-      .populate("category createdBy", "name firstName-_id");
+      .populate("category", "name");
     res.status(200).json({
       success: true,
       message: `product updated`,
@@ -119,16 +123,14 @@ const createNewComment = (req, res) => {
         {
           $push: { comments: result._id },
         }
-      );
-      console.log("result from create commet", result);
+      ); 
       res.status(201).json({
         success: true,
         message: `Comment created`,
         comment: result,
       });
     })
-    .catch((err) => {
-      console.log("error from create comments", err);
+    .catch((err) => { 
       res.status(500).json({
         success: false,
         message: "Server Error",
@@ -156,6 +158,38 @@ const getProductByCategoryId = async (req, res) => {
     });
   }
 };
+const getProductByPrice = (req, res) => {
+  const { price } = req.params;
+
+  // Parse price to ensure it's a number
+  const numericPrice = parseFloat(price);
+
+  // Check if the parsed price is a valid number
+  if (isNaN(numericPrice)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid price value",
+    });
+  }
+
+  productSchema
+    .find({ price: { $gte: numericPrice } })
+    .then((result) => {
+      res.status(200).json({
+        result,
+      });
+    })
+    .catch((err) => {
+      // Send a proper error response with a status code
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: err.message,
+      });
+    });
+};
+ 
+
 module.exports = {
   addProduct,
   getAllProduct,
@@ -163,4 +197,5 @@ module.exports = {
   updateProductById,
   createNewComment,
   getProductByCategoryId,
+  getProductByPrice,
 };

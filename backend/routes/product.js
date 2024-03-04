@@ -7,13 +7,14 @@ const {
   updateProductById,
   createNewComment,
   getProductByCategoryId,
+  getProductByPrice
 } = require("../controllers/product");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 productRouter.post(
   "/addProduct",
-  authentication,
-  authorization("add_products"),
+  // authentication,
+  // authorization("add_products"),
   addProduct
 );
 productRouter.delete(
@@ -24,11 +25,13 @@ productRouter.delete(
 );
 productRouter.put(
   "/:id/update",
-  authentication,
-  authorization("add_products"),
+  // authentication,
+  // authorization("add_products"),
   updateProductById
 );
 productRouter.get("", getAllProduct);
+
+productRouter.get("/:price", getProductByPrice);
 
 productRouter.get("/:id/products", getProductByCategoryId);
 productRouter.post(

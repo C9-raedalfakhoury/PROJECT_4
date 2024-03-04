@@ -71,7 +71,7 @@ const LoginAndRegister = () => {
             onClick={async () => {
               try {
                 const result = await axios.post(
-                  "http://localhost:5000/users/login",
+                  "https://smart-shopper-19vo.onrender.com/users/login",
                   login
                 );
                 setToken(result.data.token);
@@ -156,7 +156,7 @@ const LoginAndRegister = () => {
               type="reset"
               onClick={async (e) => {
                 axios
-                  .post("http://localhost:5000/users/register", register)
+                  .post("https://smart-shopper-19vo.onrender.com/users/register", register)
                   .then((result) => {
                     Swal.fire({
                       position: "center",

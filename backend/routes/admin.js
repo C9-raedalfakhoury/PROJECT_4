@@ -10,8 +10,8 @@ const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 adminRouter.delete(
   "/admin/:id/delete",
-  authentication,
-  authorization("Manage_users"),
+  // authentication,
+  // authorization("Manage_users"),
   deleteUserById
 );
 adminRouter.delete(
@@ -22,14 +22,14 @@ adminRouter.delete(
 );
 adminRouter.delete(
   "/admin/:id/products/delete",
-  authentication,
-  authorization("Manage_products"),
+  // authentication,
+  // authorization("Manage_products"),
   deleteProductById
 );
 adminRouter.post(
   "/category",
-  authentication,
-  authorization("add_category"),
+  // authentication,
+  // authorization("add_category"),
   createCategory
 );
 module.exports = adminRouter;

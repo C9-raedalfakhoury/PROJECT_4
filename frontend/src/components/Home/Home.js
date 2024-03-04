@@ -33,7 +33,7 @@ const Home = () => {
 
   const getAllProduct = async (filter) => {
     try {
-      const result = await axios.get(`http://localhost:5000/products`, {
+      const result = await axios.get(`https://smart-shopper-19vo.onrender.com/products`, {
         params: { filter: filter?.productName || "" },
       });
       const data = await result.data;
@@ -98,7 +98,7 @@ const Home = () => {
               <BiCartAdd
                 className="addToCart"
                 onClick={async () => {
-                  if (!token || Date.now() > tokenExpiration) {
+                  if (!token  ) {
                     Swal.fire({
                       title: "Please Login?",
                       text: "You cannot add the product to the cart!",
@@ -131,7 +131,7 @@ const Home = () => {
                     };
                     try {
                       const response = await axios.post(
-                        `http://localhost:5000/cart/${item._id}/addtocart`,
+                        `https://smart-shopper-19vo.onrender.com/cart/${item._id}/addtocart`,
                         { product: test },
                         {
                           headers: {
