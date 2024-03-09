@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import ImageSlider from "../../ImageSlider/ImageSlider";
+import Navbar from "../Navbar/Navbar";
 const Home = () => {
   const [tokenExpiration, setTokenExpiration] = useState(0);
 
@@ -58,6 +59,7 @@ const Home = () => {
   }, [filter?.productName]);
   return (
    <>
+   <Navbar />
    <ImageSlider/>
 
    <div className="productCard">
