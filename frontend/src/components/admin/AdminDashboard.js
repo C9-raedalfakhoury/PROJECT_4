@@ -347,13 +347,13 @@ const AdminDashboard = () => {
       className="input"
       placeholder="imageUrl"
     ></input>
-    <div>
+    {/* <div>
       <input
         type="file"
         onChange={(e) => setImage(e.target.files[0])}
       ></input>
       <button onClick={uploadImage()}>Upload</button>
-    </div>
+    </div> */}
     <input
       onChange={(e) => {
         setProductDetail((prev) => {
