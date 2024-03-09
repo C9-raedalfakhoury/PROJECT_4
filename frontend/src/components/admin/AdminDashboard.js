@@ -131,6 +131,7 @@ const AdminDashboard = () => {
     getAllUser();
   }, []);
   return (
+    // {edit style}
     <div className="mainAdmin">
       <div className="adminNavBar">
         <input
