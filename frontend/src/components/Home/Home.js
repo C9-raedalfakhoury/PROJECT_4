@@ -11,6 +11,7 @@ import "../Home/Home.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import ImageSlider from "../../ImageSlider/ImageSlider";
 const Home = () => {
   const [tokenExpiration, setTokenExpiration] = useState(0);
 
@@ -56,7 +57,10 @@ const Home = () => {
     fetchData();
   }, [filter?.productName]);
   return (
-    <div className="productCard">
+   <>
+   <ImageSlider/>
+
+   <div className="productCard">
       {products?.map((item, i) => {
         return (
           <div className="oneProductCard" key={i}>
@@ -152,7 +156,8 @@ const Home = () => {
           </div>
         );
       })}
-    </div>
+    </div>   
+   </>
   );
 };
 

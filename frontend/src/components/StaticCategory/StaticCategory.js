@@ -4,6 +4,7 @@ import "../StaticCategory/staticCategory.css";
 import { ApplicationContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 
 const StaticCategory = () => {
    const [category, setCategory] = useState([]);
@@ -25,7 +26,9 @@ const StaticCategory = () => {
   const { setCategoryId, setToggleHome, setProductByCategory } =
     useContext(ApplicationContext);
   return (
-    <div className="static">
+  <>
+  <Navbar/>
+  <div className="static">
       {category?.map((item, i) => {
         return (
           <button
@@ -57,6 +60,7 @@ const StaticCategory = () => {
         );
       })}
     </div>
+  </>
   );
 };
 

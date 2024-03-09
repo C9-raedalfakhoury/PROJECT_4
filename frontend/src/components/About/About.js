@@ -4,9 +4,12 @@ import { CiHeart } from "react-icons/ci";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FiRefreshCw } from "react-icons/fi";
 import { CiClock2 } from "react-icons/ci";
+import Navbar from "../Navbar/Navbar";
 const About = () => {
   return (
-    <div className="About">
+  <>
+  <Navbar/>
+  <div className="About">
       <div
         className="banner"
         style={{
@@ -85,6 +88,7 @@ const About = () => {
         
       </div>
     </div>
+  </>
   );
 };
 

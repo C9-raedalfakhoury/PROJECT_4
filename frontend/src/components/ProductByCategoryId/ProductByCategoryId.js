@@ -7,6 +7,7 @@ import "../ProductByCategoryId/ProductByCategoryId.css";
 import { BiCartAdd } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 const ProductByCategoryId = () => {
   const navigate = useNavigate();
   const [tokenExpiration, setTokenExpiration] = useState(0);
@@ -17,7 +18,9 @@ const ProductByCategoryId = () => {
       setTokenExpiration(Date.now() + 60 * 60 * 1000); // اعتبارًا من الوقت الحالي + 60 دقيقة
     }, [token]);
   return (
-    <div className="specificCategory">
+  <>
+  <Navbar/>
+  <div className="specificCategory">
       {productByCategory?.map((item, i) => {
         return (
           <div className="oneProductCard" key={i}>
@@ -114,6 +117,7 @@ const ProductByCategoryId = () => {
         );
       })}
     </div>
+  </>
   );
 };
 

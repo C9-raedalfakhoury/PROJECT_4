@@ -4,9 +4,12 @@ import React from "react";
 import "../Contact/Contact.css";
 import { MdOutlinePhoneAndroid } from "react-icons/md";
 import { CiMail } from "react-icons/ci";
+import Navbar from "../Navbar/Navbar";
 const Contact = () => {
   return (
-    <div className="contact">
+   <>
+   <Navbar/>
+   <div className="contact">
       <div
         className="banner"
         style={{
@@ -122,6 +125,7 @@ const Contact = () => {
         </div>
       </footer>
     </div>
+   </>
   );
 };
 

@@ -8,6 +8,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "reactjs-popup/dist/index.css";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 const Cart = () => {
   const navigate = useNavigate();
   const {
@@ -74,7 +75,11 @@ const Cart = () => {
   };
 
   return (
-    <div className="main">
+  <>
+  
+  <Navbar/>
+
+  <div className="main">
       <div className="panel">
         <p className="products">Products</p>
         <p className="products">Quantity</p>
@@ -230,6 +235,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
+  </>
   );
 };
 

@@ -62,10 +62,8 @@ function App() {
       }}
     >
       {/* <AdminDashboard /> */}
-      {login.email === "raed@gmail.com" ? null : <Navbar />}
       {toggleHome ? (
         <>
-          <ImageSlider />
           <Home />
         </>
       ) : (
@@ -90,39 +88,4 @@ function App() {
 // }
 
 export default App;
-
-/*
  
-import React, { useState } from 'react'
-const App = () => {
- 
-const uploadImage = () => {
-const data = new FormData()
-data.append("file", image)
-data.append("upload_preset", "Smart_Shopper")
-data.append("cloud_name","dv4vcdrz3")
-fetch("  https://api.cloudinary.com/v1_1/dv4vcdrz3/image/upload",{
-method:"post",
-body: data
-})
-.then(resp => resp.json())
-.then(data => {
-setUrl(data.url)
-})
-.catch(err => console.log(err))
-}
-return (
-<div>
-<div>
-<input type="file" onChange= {(e)=> setImage(e.target.files[0])}></input>
-<button onClick={uploadImage}>Upload</button>
-</div>
-<div>
-<h1>Uploaded image will be displayed here</h1>
-<img src={url}/>
-</div>
-</div>
-)
-}
-export default App;
-*/ 

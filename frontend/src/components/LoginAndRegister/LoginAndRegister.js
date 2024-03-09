@@ -6,6 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ApplicationContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 const LoginAndRegister = () => {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(true);
@@ -14,7 +15,9 @@ const LoginAndRegister = () => {
   const [register, setRegister] = useState({});
 
   return (
-    <div className="LoginAndRegister">
+  <>
+  <Navbar/>
+  <div className="LoginAndRegister">
       <div className="title">
         <h1
           style={{
@@ -188,6 +191,7 @@ const LoginAndRegister = () => {
         </div>
       )}
     </div>
+  </>
   );
 };
 

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ApplicationContext } from "../../App";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 
 const Order = () => {
   const { setToggleHome, cartData, setCounter,  userInfo } =
@@ -19,7 +20,9 @@ const Order = () => {
     }, 0);
   }; 
   return (
-    <div id="mainOrder">
+ <>
+ <Navbar/>
+ <div id="mainOrder">
       <div className="order">
         {/* <input placeholder={userInfo?.result?.role}  id="email"></input> */}
         <h3>{userInfo?.result?.email || ""}</h3>
@@ -344,6 +347,8 @@ const Order = () => {
         </div>
       </div>
     </div>
+ 
+ </>
   );
 };
 
